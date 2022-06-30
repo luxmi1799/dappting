@@ -36,7 +36,12 @@ class _sign_up extends State<sign_up> {
             )
         ),
       Scaffold(
-          backgroundColor: Color(0xffCC0000),
+         // backgroundColor: Color(0xffCC0000),
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [

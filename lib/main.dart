@@ -20,15 +20,75 @@ class MyApp extends StatelessWidget {
   }
 }
 class Splash2 extends StatelessWidget {
+  double _opacity = 0.9;
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 3,
-      navigateAfterSeconds: new login(),
-      image:  Image.asset("assets/logo.png",fit:BoxFit.fill,),
-      loadingText: Text("Loading"),
-      photoSize: 150.0,
-      loaderColor: Colors.red,
+    return Stack(
+      children: [
+        Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Stack(children: [
+                  Container(
+                    width: double.maxFinite,
+                    height: MediaQuery.of(context).size.height,
+                    color: Color(0xffCC0000),
+                  ),
+                  Opacity(
+                      opacity: _opacity,
+                      child: Image.asset(
+                          'assets/hearts_1.png',
+                          width: double.maxFinite,
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.cover)),
+                ]),
+              ],
+            )
+        ),
+        Scaffold(
+          //  backgroundColor: Color(0xffCC0000),
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 50.0),
+                    child: Center(
+                      child: Image.asset("assets/logo.png",
+                      ),
+                    ),
+                  ),
+
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => login()));
+                      },
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            width: 70,
+                              height: 70,
+                              child: Image.asset("assets/homecircle.png")),
+                          // Front image
+                          Image.asset("assets/rectangle.png"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+        ),
+      ],
     );
   }
 }
