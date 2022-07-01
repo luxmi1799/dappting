@@ -195,7 +195,7 @@ class _home_match extends State<home_match> {
                                               padding:  EdgeInsets.only(left: 20.0,top: 10),
                                               child: Align(
                                                 alignment: Alignment.centerLeft,
-                                                child: Text("Video Call @ 30 / min",
+                                                child: Text("Video Call @ 30 \u{1FA99}/ min",
                                                   style: TextStyle(
                                                     color:  Color(0xff07D3DF),
                                                     fontSize: 12,
@@ -207,12 +207,17 @@ class _home_match extends State<home_match> {
                                               padding:  EdgeInsets.only(right: 20.0),
                                               child: Align(
                                                 alignment: Alignment.centerRight,
-                                                child: Text("Skip",
-                                                  style: TextStyle(
-                                                    color:  Colors.white,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold
-                                                  ),
+                                                child: Row(
+                                                  children: [
+                                                    Text("Skip",
+                                                      style: TextStyle(
+                                                        color:  Colors.white,
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.bold
+                                                      ),
+                                                    ),
+                                                    Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                                  ],
                                                 ),
                                               ),
                                             ),
