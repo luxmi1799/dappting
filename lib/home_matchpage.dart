@@ -81,8 +81,6 @@ class _home_match extends State<home_match> {
                                   border: Border.all(color: Color(0xff07D3DF),width: 2)
                               ),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(top: 10,bottom: 10),
@@ -134,6 +132,81 @@ class _home_match extends State<home_match> {
                                         ),
                                       ),
                                      ),
+                                    ],
+                                  ),
+
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 20,top: 10,bottom: 3),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text("Tiffany 24",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),),
+                                        ),
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 20,right: 10),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text("Australia",
+                                                style: TextStyle(
+                                                  color: Colors.white.withOpacity(0.7),
+                                                  fontSize: 12,
+                                                ),),
+                                            ),
+                                          ),
+
+                                          Opacity(
+                                            opacity: 0.9,
+                                            child: Container(
+                                             // color: Colors.green.withOpacity(5),
+                                              width: 50,
+                                              height: 17,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                color: Colors.green,
+                                              ),
+                                              child: Center(
+                                                child: Text("online",style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.teal,
+                                                  fontSize: 12,
+                                                ),),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text("Video Call @ 30 / min",
+                                              style: TextStyle(
+                                                color:  Color(0xff07D3DF),
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            Text("Skip",
+                                              style: TextStyle(
+                                                color:  Colors.white,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
