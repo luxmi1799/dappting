@@ -72,11 +72,11 @@ class _home_match extends State<home_match> {
                         child: Container(
                           //alignment: Alignment.bottomCenter,
                           width: MediaQuery.of(context).size.width,
-                          height: 300,
+                          height: 270,
                           color:Color(0xffCC0000).withOpacity(0.3),
                             child: Container(
                                width: MediaQuery.of(context).size.width,
-                               height: 300,
+                               height: 270,
                                decoration: BoxDecoration(
                                   border: Border.all(color: Color(0xff07D3DF),width: 2)
                               ),
@@ -187,26 +187,38 @@ class _home_match extends State<home_match> {
                                           ),
                                         ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Video Call @ 30 / min",
-                                              style: TextStyle(
-                                                color:  Color(0xff07D3DF),
-                                                fontSize: 12,
+                                            Padding(
+                                              padding:  EdgeInsets.only(left: 20.0,top: 10),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text("Video Call @ 30 / min",
+                                                  style: TextStyle(
+                                                    color:  Color(0xff07D3DF),
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                            Text("Skip",
-                                              style: TextStyle(
-                                                color:  Colors.white,
-                                                fontSize: 12,
+                                            Padding(
+                                              padding:  EdgeInsets.only(right: 20.0),
+                                              child: Align(
+                                                alignment: Alignment.centerRight,
+                                                child: Text("Skip",
+                                                  style: TextStyle(
+                                                    color:  Colors.white,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
+
                                     ],
                                   ),
                                 ],
