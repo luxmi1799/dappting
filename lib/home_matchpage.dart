@@ -209,14 +209,14 @@ class _home_match extends State<home_match> {
                                                 alignment: Alignment.centerRight,
                                                 child: Row(
                                                   children: [
-                                                    Text("Skip",
+                                                    Text("SKIP",
                                                       style: TextStyle(
                                                         color:  Colors.white,
                                                         fontSize: 12,
                                                         fontWeight: FontWeight.bold
                                                       ),
                                                     ),
-                                                    Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                                    Icon(Icons.arrow_forward_ios,color: Colors.white,size: 15,)
                                                   ],
                                                 ),
                                               ),

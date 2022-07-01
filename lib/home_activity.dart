@@ -1,3 +1,4 @@
+import 'package:dapp/myprofile.dart';
 import 'package:flutter/material.dart';
 
 import 'home_matchpage.dart';
@@ -16,6 +17,7 @@ class _home extends State<home_home> {
     home_match(),
     home_match(),
     home_match(),
+    myprofile(),
   ];
   onTapped(int index) {
     setState(() {
@@ -50,6 +52,13 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/msg.png"),
+               size: 30,
+             ),
+             label: "",
+           ),
+           BottomNavigationBarItem(
+             icon: ImageIcon(
+               AssetImage("assets/breakheart.png"),
                size: 30,
              ),
              label: "",
