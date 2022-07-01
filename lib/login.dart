@@ -1,4 +1,5 @@
 import 'package:dapp/forget_password.dart';
+import 'package:dapp/home_activity.dart';
 import 'package:dapp/sign_up.dart';
 import 'package:flutter/material.dart';
 
@@ -119,7 +120,7 @@ class _sign_up extends State<login> {
                       color: Color(0xff07D3DF),
                       child: FlatButton(
                         onPressed: (){
-
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => home_home()));
                         },
                         child: Text("LOG IN",
                           textAlign: TextAlign.center,
