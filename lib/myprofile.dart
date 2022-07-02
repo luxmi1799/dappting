@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class myprofile extends StatefulWidget{
@@ -153,6 +154,114 @@ class _myprofile extends State<myprofile> {
                     ),
                   ),
 
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:Color(0xff07D3DF).withOpacity(0.3),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                               Padding(
+                                 padding: const EdgeInsets.only(top: 6.0,left: 6),
+                                 child: Row(
+                                     // mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(" My Balance",style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold
+                                          ),),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                           height: 10,
+                                            child: Image.asset("assets/redfrwd.png")),
+                                      ],
+                                    ),
+                               ),
+
+                              Padding(
+                                padding:  EdgeInsets.only(top: 6,left: 6),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text("750 Coins \u{1FA99}",
+                                    style: TextStyle(
+                                      color:  Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:Color(0xff07D3DF).withOpacity(0.3),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0,left: 6),
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(" My Balance",style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold
+                                      ),),
+                                    ),
+                                    SizedBox(
+                                        width: 10,
+                                        height: 10,
+                                        child: Image.asset("assets/redfrwd.png")),
+                                  ],
+                                ),
+                              ),
+
+                              Padding(
+                                padding:  EdgeInsets.only(top: 6,left: 6),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text("750 Coins \u{1FA99}",
+                                    style: TextStyle(
+                                      color:  Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
 
                 ],
               ),
