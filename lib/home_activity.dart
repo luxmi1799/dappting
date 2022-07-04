@@ -1,4 +1,5 @@
 import 'package:dapp/myprofile.dart';
+import 'package:dapp/wallet.dart';
 import 'package:flutter/material.dart';
 
 import 'home_matchpage.dart';
@@ -16,7 +17,7 @@ class _home extends State<home_home> {
     home_match(),
     home_match(),
     home_match(),
-    home_match(),
+    mybalance(),
     myprofile(),
   ];
   onTapped(int index) {
@@ -37,7 +38,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/home.png"),
-               //color: Colors.white,
+               color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -45,6 +46,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/hot.png"),
+               color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -52,6 +54,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/msg.png"),
+               color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -59,6 +62,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/breakheart.png"),
+               color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -66,6 +70,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/profile.png"),
+               color: Colors.white,
                size: 30,
              ),
              label: "",

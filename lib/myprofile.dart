@@ -2,6 +2,7 @@ import 'package:dapp/editprofile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+bool editprof = false;
 class myprofile extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -23,7 +24,7 @@ class _myprofile extends State<myprofile> {
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover)
         ),
-        Scaffold(
+       editprof==false? Scaffold(
           //  backgroundColor: Color(0xffCC0000),
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -64,7 +65,10 @@ class _myprofile extends State<myprofile> {
                     padding: const EdgeInsets.only(top: 30.0),
                     child: InkWell(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => edit_profile()));
+                        setState(() {
+                          editprof = true;
+                        });
+                        //Navigator.of(context).push(MaterialPageRoute(builder: (context) => edit_profile()));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -457,8 +461,342 @@ class _myprofile extends State<myprofile> {
                 ],
               ),
             )
-        ),
+        ):editprofile(context),
       ],
+    );
+  }
+  Widget editprofile(BuildContext context){
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(5.0), // he,
+        child: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+              onPressed: () {
+                setState(() {
+                  editprof = false;
+                });
+              }),
+          backgroundColor: Colors.transparent,
+         /* title: SizedBox(
+            height: 250,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Image.asset("assets/pg1.png"),
+                ),
+                Column(
+                  children: [
+                    Image.asset("assets/pg2.png"),
+                    Image.asset("assets/pg3.png"),
+                  ],
+                ),
+              ],
+            ),
+          ),*/
+          elevation: 0.0,
+        ),
+      ),
+       body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+
+              Row(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+                        onPressed: () {
+                          setState(() {
+                            editprof = false;
+                          });
+                        }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SizedBox(
+                        width:180,
+                        height: 180,
+                        child: Image.asset("assets/pg1.png",fit: BoxFit.fill,)),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                         width: 100,
+                          height: 90,
+                          child: Image.asset("assets/pg2.png",fit: BoxFit.fill,)),
+                      SizedBox(
+                          width:100,
+                          height: 90,
+                          child: Image.asset("assets/pg3.png",fit: BoxFit.fill,)),
+                    ],
+                  ),
+                ],
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,right: 20),
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Image.asset("assets/halfcircle.png")),
+                      // Front image
+                      SizedBox(
+                          width: 90,
+                          height: 90,
+                          child: Image.asset("assets/profilepic.png")),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0,bottom: 8),
+                child: Center(
+                  child: Text("14788888",style: TextStyle(
+                      color: Color(0xffCC0000),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Row(
+                  children: [
+                    Text("Basic Information",style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: Colors.black
+                    ),),
+                     SizedBox(
+                       width: 5,
+                     ),
+                     Text("( Fill in all to get \u{1FA99} )",style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Nick Name",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("142678999",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Birthday",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("City",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Height",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Weight",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Language",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Sexual Orientation",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Hair Color",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Interests",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("unfiled",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 40),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xffCC0000),
+                  ),
+                  child: FlatButton(
+                    onPressed: (){
+                    },
+                    child: Text("SAVE",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        backgroundColor:  Color(0xffCC0000),
+                      ),),
+                    // color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
     );
   }
 }
