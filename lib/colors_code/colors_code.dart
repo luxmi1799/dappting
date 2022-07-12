@@ -6,5 +6,6 @@ class colors_code {
   static String top_g = "FEB974";
   static String mid_g = "944C1E";
   static String bottom_g = "772F1A";
-  static String profile_g = "07D3DF";
+  static String pink = "f5cccc";
+
 }
