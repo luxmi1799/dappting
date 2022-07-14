@@ -1,9 +1,11 @@
 import 'package:dapp/hotpage.dart';
 import 'package:dapp/myprofile.dart';
+import 'package:dapp/swipecard.dart';
 import 'package:dapp/vipaccess.dart';
 import 'package:dapp/wallet.dart';
 import 'package:flutter/material.dart';
 
+import 'card.dart';
 import 'home_matchpage.dart';
 
 class home_home extends StatefulWidget{
@@ -18,8 +20,10 @@ class _home extends State<home_home> {
   List<Widget> tabs = [
     home_match(),
     hotpage(),
+    //swipe(),
     vipaccess(),
-    mybalance(),
+    MyHomePage(),
+  //  mybalance(),
     myprofile(),
   ];
   onTapped(int index) {

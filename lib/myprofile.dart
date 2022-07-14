@@ -1,4 +1,5 @@
 import 'package:dapp/editprofile.dart';
+import 'package:dapp/wallet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -252,7 +253,7 @@ class _myprofile extends State<myprofile> {
                                       alignment: Alignment.centerLeft,
                                       child: InkWell(
                                         onTap: (){
-
+                                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => mybalance()));
                                         },
                                         child: Text(" Premium / VIP",style: TextStyle(
                                             color: Colors.white,
