@@ -24,7 +24,7 @@ class _myprofile extends State<myprofile> {
                 height: MediaQuery.of(context).size.height,
                 fit: BoxFit.cover)
         ),
-       editprof==false? Scaffold(
+        editprof==false? Scaffold(
           //  backgroundColor: Color(0xffCC0000),
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -250,11 +250,16 @@ class _myprofile extends State<myprofile> {
 
                                     Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(" Premium / VIP",style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold
-                                      ),),
+                                      child: InkWell(
+                                        onTap: (){
+
+                                        },
+                                        child: Text(" Premium / VIP",style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold
+                                        ),),
+                                      ),
                                     ),
                                   ],
                                 ),

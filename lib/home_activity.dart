@@ -1,4 +1,6 @@
+import 'package:dapp/hotpage.dart';
 import 'package:dapp/myprofile.dart';
+import 'package:dapp/vipaccess.dart';
 import 'package:dapp/wallet.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +17,8 @@ class _home extends State<home_home> {
   int currentTabIndex = 0;
   List<Widget> tabs = [
     home_match(),
-    home_match(),
-    home_match(),
+    hotpage(),
+    vipaccess(),
     mybalance(),
     myprofile(),
   ];
@@ -31,14 +33,19 @@ class _home extends State<home_home> {
        body: tabs[currentTabIndex],
        bottomNavigationBar: BottomNavigationBar(
          onTap: onTapped,
+         showSelectedLabels: false,
+         showUnselectedLabels: false,
+         landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
          currentIndex: currentTabIndex,
-         type: BottomNavigationBarType.fixed, // Fixed
+         type: BottomNavigationBarType.fixed,
+         selectedItemColor: Color(0xffCC0000),
+         unselectedItemColor: Colors.white,// Fixed
          backgroundColor: Color(0xff07D3DF),
          items: const [
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/home.png"),
-               color: Colors.white,
+               // color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -46,7 +53,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/hot.png"),
-               color: Colors.white,
+               // color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -54,7 +61,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/msg.png"),
-               color: Colors.white,
+               // color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -62,7 +69,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/breakheart.png"),
-               color: Colors.white,
+               // color: Colors.white,
                size: 30,
              ),
              label: "",
@@ -70,7 +77,7 @@ class _home extends State<home_home> {
            BottomNavigationBarItem(
              icon: ImageIcon(
                AssetImage("assets/profile.png"),
-               color: Colors.white,
+               // color: Colors.white,
                size: 30,
              ),
              label: "",
