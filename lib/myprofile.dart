@@ -222,71 +222,76 @@ class _myprofile extends State<myprofile> {
                           ),
                         ),
 
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                const Color(0xFFFEB974),
-                                const Color(0xFF944C1E),
-                                const Color(0xFF772F1A),
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                            //color:Color(0xff07D3DF).withOpacity(0.3),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0,left: 6),
-                                child: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: InkWell(
-                                        onTap: (){
-                                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => mybalance()));
-                                        },
-                                        child: Text(" Premium / VIP",style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold
-                                        ),),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                        InkWell(
+                          onTap: (){
+                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => mybalance()));
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xFFFEB974),
+                                  const Color(0xFF944C1E),
+                                  const Color(0xFF772F1A),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                               ),
+                              borderRadius: BorderRadius.circular(10),
+                              //color:Color(0xff07D3DF).withOpacity(0.3),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                              Padding(
-                                padding:  EdgeInsets.only(top: 6,left: 6),
-                                child: Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text("Get more privilleges",
-                                        style: TextStyle(
-                                          color:  Colors.white,
-                                          fontSize: 12,
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0,left: 6),
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: InkWell(
+                                          onTap: (){
+                                            // Navigator.of(context).push(MaterialPageRoute(builder: (context) => mybalance()));
+                                          },
+                                          child: Text(" Premium / VIP",style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold
+                                          ),),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                        width: 10,
-                                        height: 10,
-                                        child: Image.asset("assets/whitefwrd.png")),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+
+                                Padding(
+                                  padding:  EdgeInsets.only(top: 6,left: 6),
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text("Get more privilleges",
+                                          style: TextStyle(
+                                            color:  Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: 10,
+                                          height: 10,
+                                          child: Image.asset("assets/whitefwrd.png")),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
 
