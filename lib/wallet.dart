@@ -15,14 +15,35 @@ class _mybalance extends State<mybalance> {
   Widget build(BuildContext context) {
    return Stack(
      children: [
-       Opacity(
-           opacity: _opacity,
-           child: Image.asset(
-               'assets/homeheart.png',
-               width: double.maxFinite,
-               height: MediaQuery.of(context).size.height,
-               fit: BoxFit.cover)
+       Center(
+           child: Column(
+             mainAxisAlignment: MainAxisAlignment.start,
+             children: [
+               Stack(children: [
+                 Container(
+                   width: double.maxFinite,
+                   height: MediaQuery.of(context).size.height,
+                   color: Colors.white,
+                 ),
+                 Opacity(
+                     opacity: _opacity,
+                     child: Image.asset(
+                         'assets/hearts_1.png',
+                         width: double.maxFinite,
+                         height: MediaQuery.of(context).size.height,
+                         fit: BoxFit.cover)),
+               ]),
+             ],
+           )
        ),
+       // Opacity(
+       //     opacity: _opacity,
+       //     child: Image.asset(
+       //         'assets/homeheart.png',
+       //         width: double.maxFinite,
+       //         height: MediaQuery.of(context).size.height,
+       //         fit: BoxFit.cover)
+       // ),
        Scaffold(
          //  backgroundColor: Color(0xffCC0000),
            backgroundColor: Colors.transparent,
