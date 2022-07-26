@@ -275,235 +275,346 @@ class _mybalance extends State<mybalance> {
         ),
 
         Padding(
-          padding: const EdgeInsets.only(top: 50.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(" \u{1FA99} 46 Coins",style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),),
-
-              Container(
-               width: 50,
-                height: 20,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xff07D3DF),width: 1.5),
-                ),
-                child: Text("₹ 99.00",style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black
-                ),),
-              ),
-
-            ],
-          ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(" \u{1FA99} 146 Coins",style: TextStyle(
-                fontSize: 12,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),),
-
-              Row(
+          padding: const EdgeInsets.only(top: 30.0),
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+                border:Border.all(color: Color(0xff07D3DF),width: 1),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  Text("VIP ₹249.00 ",style: TextStyle(
-                    fontSize: 10,
-                    color: Color(0xffCC0000),
-                    fontWeight: FontWeight.bold,
-                  ),),
+                  Row(
+                    children: [
+                      Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                      Text(" 46 Coins",style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ],
+                  ),
 
                   Container(
-                    width: 50,
+                   width: 50,
                     height: 20,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff07D3DF),width: 1.5),
+                        color: Color(0xffCC0000).withOpacity(0.8),
+                       // border: Border.all(color: Color(0xff07D3DF),width: 1.5),
+                        borderRadius: BorderRadius.circular(4)
                     ),
-                    child: Text("₹ 99.00",style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black
-                    ),),
+                    child: Center(
+                      child: Text("₹ 99.00",style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white
+                      ),),
+                    ),
                   ),
+
                 ],
               ),
-
-            ],
+            ),
           ),
         ),
 
+
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+                border:Border.all(color: Color(0xff07D3DF),width: 1),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(" \u{1FA99} 426 Coins",style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(
-                    width: 4,
+                  Row(
+                    children: [
+                      Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                      Text("  146 Coins",style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ],
                   ),
-                  Container(
-                    width: 60,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xffCC0000),width: 1.5),
-                    ),
-                    child: Text("8% bonus",style: TextStyle(
+
+                  Row(
+                    children: [
+
+                      Text("VIP ₹249.00 ",style: TextStyle(
                         fontSize: 10,
-                        color: Colors.black
-                    ),),
+                        color: Color(0xffCC0000),
+                        fontWeight: FontWeight.bold,
+                      ),),
+
+                      Container(
+                        width: 50,
+                        height: 20,
+                        decoration: BoxDecoration(
+                            color: Color(0xffCC0000).withOpacity(0.8),
+                           // border: Border.all(color: Color(0xff07D3DF),width: 1.5),
+                            borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Center(
+                          child: Text("₹ 99.00",style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white
+                          ),),
+                        ),
+                      ),
+                    ],
                   ),
+
                 ],
               ),
+            ),
+          ),
+        ),
 
-              Row(
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 8.0),
+        //   child: Container(
+        //     width: MediaQuery.of(context).size.width,
+        //     height: 1.5,
+        //     color: Colors.black.withOpacity(0.2),
+        //   ),
+        // ),
+
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+              border:Border.all(color: Color(0xff07D3DF),width: 1),
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  Text("VIP ₹249.00 ",style: TextStyle(
-                    fontSize: 10,
-                    color: Color(0xffCC0000),
-                    fontWeight: FontWeight.bold,
-                  ),),
-
-                  Container(
-                    width: 50,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff07D3DF),width: 1.5),
-                    ),
-                    child: Text("₹ 99.00",style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black
-                    ),),
+                  Row(
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                          Text(" 426 Coins",style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        width: 60,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          //border: Border.all(color: Color(0xffCC0000),width: 1.5),
+                        ),
+                        child: Center(
+                          child: Text("8% bonus",style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black
+                          ),),
+                        ),
+                      ),
+                    ],
                   ),
+
+                  Row(
+                    children: [
+
+                      Text("VIP ₹249.00 ",style: TextStyle(
+                        fontSize: 10,
+                        color: Color(0xffCC0000),
+                        fontWeight: FontWeight.bold,
+                      ),),
+
+                      Container(
+                        width: 50,
+                        height: 20,
+                        decoration: BoxDecoration(
+                            color: Color(0xffCC0000).withOpacity(0.8),
+                           // border: Border.all(color: Color(0xff07D3DF),width: 1.5),
+                            borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Center(
+                          child: Text("₹ 99.00",style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white
+                          ),),
+                        ),
+                      ),
+                    ],
+                  ),
+
                 ],
               ),
-
-            ],
+            ),
           ),
         ),
 
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+                border:Border.all(color: Color(0xff07D3DF),width: 1),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(" \u{1FA99} 426 Coins",style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(
-                    width: 4,
+                  Row(
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                          Text(" 426 Coins",style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        width: 60,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          //border: Border.all(color: Color(0xffCC0000),width: 1.5),
+                        ),
+                        child: Center(
+                          child: Text("10% bonus",style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black
+                          ),),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: 60,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xffCC0000),width: 1.5),
-                    ),
-                    child: Text("10% bonus",style: TextStyle(
+
+                  Row(
+                    children: [
+
+                      Text("VIP ₹249.00 ",style: TextStyle(
                         fontSize: 10,
-                        color: Colors.black
-                    ),),
+                        color: Color(0xffCC0000),
+                        fontWeight: FontWeight.bold,
+                      ),),
+
+                      Container(
+                        width: 50,
+                        height: 20,
+                        decoration: BoxDecoration(
+                            color: Color(0xffCC0000).withOpacity(0.8),
+                          //  border: Border.all(color: Color(0xff07D3DF),width: 1.5),
+                            borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Center(
+                          child: Text("₹ 99.00",style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white
+                          ),),
+                        ),
+                      ),
+                    ],
                   ),
+
                 ],
               ),
-
-              Row(
-                children: [
-
-                  Text("VIP ₹249.00 ",style: TextStyle(
-                    fontSize: 10,
-                    color: Color(0xffCC0000),
-                    fontWeight: FontWeight.bold,
-                  ),),
-
-                  Container(
-                    width: 50,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff07D3DF),width: 1.5),
-                    ),
-                    child: Text("₹ 99.00",style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black
-                    ),),
-                  ),
-                ],
-              ),
-
-            ],
+            ),
           ),
         ),
 
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+          child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+                border:Border.all(color: Color(0xff07D3DF),width: 1),
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(" \u{1FA99} 426 Coins",style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(
-                    width: 4,
+                  Row(
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                          Text(" 426 Coins",style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Container(
+                        width: 60,
+                        height: 20,
+                        decoration: BoxDecoration(
+                        //  border: Border.all(color: Color(0xffCC0000),width: 1.5),
+                        ),
+                        child: Center(
+                          child: Text("12% bonus",style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black
+                          ),),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: 60,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xffCC0000),width: 1.5),
-                    ),
-                    child: Text("12% bonus",style: TextStyle(
+
+                  Row(
+                    children: [
+
+                      Text("VIP ₹249.00 ",style: TextStyle(
                         fontSize: 10,
-                        color: Colors.black
-                    ),),
+                        color: Color(0xffCC0000),
+                        fontWeight: FontWeight.bold,
+                      ),),
+
+                      Container(
+                        width: 50,
+                        height: 25,
+                        decoration: BoxDecoration(
+                           color: Color(0xffCC0000).withOpacity(0.8),
+                         // border: Border.all(color: Color(0xff07D3DF),width: 1.5),
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Center(
+                          child: Text("₹ 99.00",style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white
+                          ),),
+                        ),
+                      ),
+                    ],
                   ),
+
                 ],
               ),
-
-              Row(
-                children: [
-
-                  Text("VIP ₹249.00 ",style: TextStyle(
-                    fontSize: 10,
-                    color: Color(0xffCC0000),
-                    fontWeight: FontWeight.bold,
-                  ),),
-
-                  Container(
-                    width: 50,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff07D3DF),width: 1.5),
-                    ),
-                    child: Text("₹ 99.00",style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black
-                    ),),
-                  ),
-                ],
-              ),
-
-            ],
+            ),
           ),
         ),
       ],
@@ -569,12 +680,17 @@ class _mybalance extends State<mybalance> {
 
                 ),),
 
-              Text("\u{1FA99} 0",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 13,
+              Row(
+                children: [
+                  Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                  Text(" 0",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 13,
 
-                ),),
+                    ),),
+                ],
+              ),
             ],
           ),
         ),

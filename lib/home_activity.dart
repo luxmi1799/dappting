@@ -1,5 +1,10 @@
+import 'package:dapp/chatmessage.dart';
+import 'package:dapp/demo.dart';
 import 'package:dapp/hotpage.dart';
 import 'package:dapp/myprofile.dart';
+import 'package:dapp/newhot.dart';
+import 'package:dapp/profile_dashboard.dart';
+import 'package:dapp/show_profile.dart';
 import 'package:dapp/swipecard.dart';
 import 'package:dapp/vipaccess.dart';
 import 'package:dapp/wallet.dart';
@@ -18,12 +23,12 @@ class home_home extends StatefulWidget{
 class _home extends State<home_home> {
   int currentTabIndex = 0;
   List<Widget> tabs = [
-    home_match(),
+   // Example(),
+    hot_new(),
+   // home_match(),
     hotpage(),
-    //swipe(),
-    vipaccess(),
-    MyHomePage(),
-  //  mybalance(),
+    chatmessage(),
+    show_profile(),
     myprofile(),
   ];
   onTapped(int index) {

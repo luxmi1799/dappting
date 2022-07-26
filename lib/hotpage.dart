@@ -1,3 +1,4 @@
+import 'package:dapp/profile_dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -154,13 +155,18 @@ class _hot_match extends State<hotpage> {
                                       padding: const EdgeInsets.symmetric(vertical:6.0,horizontal: 20),
                                       child: Align(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
-                                            "Oluchi Mazi 24",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 17,
-                                              color: Colors.black
-                                            ),
+                                        child: InkWell(
+                                          onTap: (){
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> profile_dashboard()));
+                                          },
+                                          child: Text(
+                                              "Oluchi Mazi 24",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17,
+                                                color: Colors.black
+                                              ),
+                                          ),
                                         ),
                                       ),
                                     ),

@@ -165,7 +165,20 @@ class _myprofile extends State<myprofile> {
                     ),
                   ),
 
-                  SizedBox(height: 120,),
+
+                 // Padding(
+                 //   padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15),
+                 //      child: Container(
+                 //     width: MediaQuery.of(context).size.width,
+                 //     height: 70,
+                 //     decoration: BoxDecoration(
+                 //       color: Color(0xff07D3DF),
+                 //       borderRadius: BorderRadius.circular(20)
+                 //     ),
+                 //   ),
+                 // ),
+
+                  SizedBox(height: 50,),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 15),
@@ -210,11 +223,16 @@ class _myprofile extends State<myprofile> {
                                 padding:  EdgeInsets.only(top: 6,left: 6),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text("750 Coins \u{1FA99}",
-                                    style: TextStyle(
-                                      color:  Colors.black,
-                                      fontSize: 12,
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Text("750 Coins ",
+                                        style: TextStyle(
+                                          color:  Colors.black,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Image.asset("assets/smallcoin.png",width: 12,height: 12,),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -365,92 +383,6 @@ class _myprofile extends State<myprofile> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Image.asset("assets/bagpack.png"),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Center(
-                                child: Text("Bagpack",style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                ),),
-                              )
-                            ],
-                          ),
-                        ),
-
-                      ],
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-
-
-                        Container(
-                          width:80,
-                          height: 60,
-                          color:Color(0xff07D3DF).withOpacity(0.15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Image.asset("assets/custser.png"),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Center(
-                                child: Text("Customer Service",style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                ),),
-                              )
-                            ],
-                          ),
-                        ),
-
-                        Container(
-                          width:80,
-                          height: 60,
-                          color:Color(0xff07D3DF).withOpacity(0.15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Image.asset("assets/google.png"),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Center(
-                                child: Text("Google Order",style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                ),),
-                              )
-                            ],
-                          ),
-                        ),
-
-                        Container(
-                          width:80,
-                          height: 60,
-                          color:Color(0xff07D3DF).withOpacity(0.15),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
                               Image.asset("assets/setting.png"),
                               SizedBox(
                                 height: 5,
@@ -466,6 +398,93 @@ class _myprofile extends State<myprofile> {
                         ),
 
                       ],
+                    ),
+                  ),
+
+                  Offstage(
+                    offstage: true,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width:80,
+                            height: 60,
+                            color:Color(0xff07D3DF).withOpacity(0.15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Image.asset("assets/custser.png"),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: Text("Customer Service",style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                  ),),
+                                )
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            width:80,
+                            height: 60,
+                            color:Color(0xff07D3DF).withOpacity(0.15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Image.asset("assets/google.png"),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: Text("Google Order",style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                  ),),
+                                )
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            width:80,
+                            height: 60,
+                            color:Color(0xff07D3DF).withOpacity(0.15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Image.asset("assets/setting.png"),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Center(
+                                  child: Text("Setings",style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                  ),),
+                                )
+                              ],
+                            ),
+                          ),
+
+                        ],
+                      ),
                     ),
                   ),
 

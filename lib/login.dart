@@ -135,19 +135,9 @@ class _sign_up extends State<login> {
                     ),
                   ),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
-                    child: Center(
-                      child: Text("Or Login From",style: TextStyle(
-                        // fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),),
-                    ),
-                  ),
 
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 50.0),
+                    padding: const EdgeInsets.symmetric(vertical: 40.0),
                     child: InkWell(
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => sign_up()));
@@ -157,7 +147,7 @@ class _sign_up extends State<login> {
                         child: Text.rich(
                           TextSpan(
                             children: [
-                              TextSpan(text: "Don't have an account",
+                              TextSpan(text: "Don't have an account ? ",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
