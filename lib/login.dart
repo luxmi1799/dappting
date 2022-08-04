@@ -1,3 +1,5 @@
+import 'package:dapp/female_user/female_dashboard.dart';
+import 'package:dapp/female_user/female_home_activity.dart';
 import 'package:dapp/forget_password.dart';
 import 'package:dapp/home_activity.dart';
 import 'package:dapp/sign_up.dart';
@@ -98,7 +100,7 @@ class _sign_up extends State<login> {
 
                   InkWell(
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => forgot_pwsd()));
+                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => forgot_pwsd()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5),
@@ -135,9 +137,33 @@ class _sign_up extends State<login> {
                     ),
                   ),
 
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 0.0),
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => female_home()));
+                      },
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Vendor Login',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color(0xff07D3DF),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
 
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: InkWell(
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => sign_up()));

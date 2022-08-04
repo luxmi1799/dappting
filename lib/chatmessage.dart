@@ -3,15 +3,8 @@ import 'package:flutter/material.dart';
 import 'chatuser.dart';
 import 'conversationList.dart';
 
-class chatmessage extends StatefulWidget{
-  @override
-  State<StatefulWidget> createState() {
-      return _chatmessage();
-  }
-}
 
-class _chatmessage extends State<chatmessage> {
-  List<ChatUsers> chatUsers = [
+List<ChatUsers> chatUsers = [
   ChatUsers(name: "Jane Russel", messageText: "Awesome Setup", image: "assets/discover1.png", time: "Now",),
   ChatUsers(name: "Glady's Murphy", messageText: "That's Great", image: "assets/discover2.png", time: "Yesterday"),
   ChatUsers(name: "Jorge Henry", messageText: "Hey where are you?", image: "assets/discover3.png", time: "31 Mar"),
@@ -20,6 +13,15 @@ class _chatmessage extends State<chatmessage> {
   ChatUsers(name: "Jacob Pena", messageText: "will update you in evening", image: "assets/discover6.png", time: "17 Mar"),
   ChatUsers(name: "Andrey Jones", messageText: "Can you please share the file?", image: "assets/discover1.png", time: "24 Feb"),
   ChatUsers(name: "John Wick", messageText: "How are you?", image: "assets/discover4.png", time: "18 Feb")];
+
+class chatmessage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+      return _chatmessage();
+  }
+}
+
+class _chatmessage extends State<chatmessage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

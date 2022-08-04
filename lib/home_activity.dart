@@ -28,7 +28,8 @@ class _home extends State<home_home> {
    // home_match(),
     hotpage(),
     chatmessage(),
-    show_profile(),
+    profile_dashboard()
+    ,
     myprofile(),
   ];
   onTapped(int index) {
