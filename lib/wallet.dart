@@ -9,6 +9,7 @@ class mybalance extends StatefulWidget{
   }
 }
 
+
 class _mybalance extends State<mybalance> {
   double _opacity = 0.9;
   @override

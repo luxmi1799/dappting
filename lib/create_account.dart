@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dapp/create_account.dart';
 import 'package:dapp/female_user/female_dashboard.dart';
 import 'package:dapp/female_user/female_home_activity.dart';
 import 'package:dapp/forget_password.dart';
@@ -10,16 +9,17 @@ import 'package:dapp/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'login.dart';
 import 'otp_screen.dart';
 
-class login extends StatefulWidget{
+class create_account extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     return _sign_up();
   }
 }
 
-class _sign_up extends State<login> {
+class _sign_up extends State<create_account> {
   final mobilecontroller = new TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _sign_up extends State<login> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Center(
-                      child: Text("Login to Continue",
+                      child: Text("Register To Login",
                         style: TextStyle(
                           fontWeight:FontWeight.bold,
                           fontSize: 26,
@@ -87,7 +87,7 @@ class _sign_up extends State<login> {
                       child: TextField(
                         controller: mobilecontroller,
                         style: TextStyle(
-                          color: Colors.white
+                            color: Colors.white
                         ),
                         keyboardType: TextInputType.number,
                         decoration: new InputDecoration(
@@ -99,9 +99,9 @@ class _sign_up extends State<login> {
                           ),
                           hintText: "Mobile No.",
                           hintStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -128,22 +128,7 @@ class _sign_up extends State<login> {
                     ),
                   ),*/
 
-                  InkWell(
-                    onTap: (){
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => forgot_pwsd()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5),
-                      child: Center(
-                        child: Text("Forgot Password?",
-                          style: TextStyle(
-                            fontWeight:FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),),
-                      ),
-                    ),
-                  ),
+
                   Padding(
                     padding: const EdgeInsets.only(left: 20,right:20,top: 30,bottom: 10),
                     child: Container(
@@ -153,7 +138,7 @@ class _sign_up extends State<login> {
                         onPressed: (){
                           circle(context);
                           send_mobile_otp(mobilecontroller.text);
-                         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => otp_screen()));
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => otp_screen()));
                         },
                         child: Text("GET OTP",
                           textAlign: TextAlign.center,
@@ -198,21 +183,21 @@ class _sign_up extends State<login> {
                     padding: const EdgeInsets.symmetric(vertical: 0.0),
                     child: InkWell(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => create_account()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => login()));
                       },
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Text.rich(
                           TextSpan(
                             children: [
-                              TextSpan(text: "Don't have an account ? ",
+                              TextSpan(text: "Already have an account?  ",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                   )
                               ),
                               TextSpan(
-                                text: 'SignUp',
+                                text: 'Login',
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: Color(0xff07D3DF),
@@ -234,7 +219,7 @@ class _sign_up extends State<login> {
 
   send_mobile_otp(String mobile) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String postUrl = "https://hookupindia.in/hookup/ApiController/userlogin";
+    String postUrl = "https://hookupindia.in/hookup/ApiController/saveUser";
     print("stringrequest");
     var request = new http.MultipartRequest(
         "POST", Uri.parse(postUrl));
@@ -248,13 +233,13 @@ class _sign_up extends State<login> {
           var success = mapRes["status"];
           var msg = mapRes["message"];
 
-          if(success == "1"){
+          if(success == 1){
             var otpdetail= mapRes["data"]["otp"];
             var user_id= mapRes["data"]["user_id"];
             print("user_id$user_id");
             setState(() {
               var getotp = otpdetail;
-              prefs.setString("new_account", " ");
+              prefs.setString("new_account", "new_account");
               prefs.setString("mobile_number",mobile);
               prefs.setString("otp_found",getotp);
               prefs.setString("user_id",user_id);
@@ -264,136 +249,6 @@ class _sign_up extends State<login> {
           }
           else{
 
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Dialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(8.0)), //this right here
-                    child: Container(
-                      height: 160,
-                      child: Column(
-                        //mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width:340.0,
-                            height: 50,
-                            child: FlatButton(
-                              onPressed: (){},
-                              child: Text("Invalid Number",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  backgroundColor:  Color(0xff07D3DF),
-                                ),),
-                              color: Color(0xff07D3DF),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-
-                          Center(
-                            child: Text("Your login credentials is incorrect ",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: 110,
-                                height: 50,
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(
-                                    "Relogin",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  color:  Colors.white,
-                                ),
-                              ),
-
-                              SizedBox(
-                                width: 110,
-                                height: 50,
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => create_account()));
-                                    // Navigator.pushNamed(context, Myroutes.practical_home);
-                                  },
-                                  child: Text(
-                                    "Register",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  color: Colors.white,
-                                ),
-                              ),
-                              // ),
-
-
-                            ],
-                          ),
-                          // SizedBox(
-                          //   width: 320.0,
-                          //   child: RaisedButton(
-                          //     onPressed: () {},
-                          //     child: Text(
-                          //       "Save",
-                          //       style: TextStyle(color: Colors.white),
-                          //     ),
-                          //     color: const Color(0xFF1BC0C5),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    ),
-                  );
-                });
-            // showDialog(
-            //     context: context,
-            //     builder: (BuildContext context) {
-            //       return AlertDialog(
-            //         title: Text("Mobile number not valid"),
-            //         content: Text("Please check number / Register Your number first"),
-            //         actions: <Widget>[
-            //           FlatButton(
-            //             child: Text("Close"),
-            //             onPressed: () {
-            //               Navigator.of(context).pop();
-            //             },
-            //           )
-            //         ],
-            //       );
-            //     }
-            // );
-
-
-            // Fluttertoast.showToast(
-            //     msg: msg,
-            //     toastLength: Toast.LENGTH_LONG,
-            //     gravity: ToastGravity.CENTER,
-            //     timeInSecForIosWeb: 1
-            // );
           }
 
         } catch (e) {

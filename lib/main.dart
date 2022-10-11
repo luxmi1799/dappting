@@ -1,5 +1,7 @@
 import 'package:dapp/login.dart';
+import 'package:dapp/provider/country_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() {
@@ -9,13 +11,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Splash Screen',
-      home: Splash2(),
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-    ),
-      debugShowCheckedModeBanner: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<country_provider>(create: (context)=>country_provider()),
+      ],
+      child: MaterialApp(
+        title: 'Splash Screen',
+        home: Splash2(),
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+      ),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

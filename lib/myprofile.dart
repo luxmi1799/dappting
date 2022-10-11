@@ -1,7 +1,17 @@
+import 'dart:convert';
+import 'package:dapp/loading_bar.dart';
+import 'package:http/http.dart'as http;
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dapp/editprofile.dart';
 import 'package:dapp/wallet.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'home_activity.dart';
 
 bool editprof = false;
 class myprofile extends StatefulWidget{
@@ -13,6 +23,37 @@ class myprofile extends StatefulWidget{
 
 class _myprofile extends State<myprofile> {
   double _opacity = 0.9;
+  List<File> imagesfile =[];
+  var nickname = new TextEditingController();
+  var birthday = new TextEditingController();
+  var city = new TextEditingController();
+  var height = new TextEditingController();
+  var weight = new TextEditingController();
+  var language = new TextEditingController();
+  var gender = new TextEditingController();
+  var haircolor = new TextEditingController();
+  var interest = new TextEditingController();
+  var user_id;
+  File? imageFile;
+
+
+  void initState() {
+    super.initState();
+    // loading(context);
+    //context.read<country_provider>().country_list();
+    Future.delayed(Duration(seconds: 2), () {});
+    get_blogdetails(context);
+    // isNumeric("8076799976");
+  }
+
+  get_blogdetails(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      user_id = prefs.getString("user_id");
+    });
+    print("blodid $user_id");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -51,6 +92,7 @@ class _myprofile extends State<myprofile> {
                       size: 28,
                       ),
                   onPressed: () {
+
                   },
                 ),
               ],
@@ -500,9 +542,10 @@ class _myprofile extends State<myprofile> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(5.0), // he,
+        preferredSize: Size.fromHeight(35.0), // he,
         child: AppBar(
           centerTitle: true,
+          title: Text("Edit Information",style: TextStyle(color: Colors.black),),
           leading: IconButton(
               icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
               onPressed: () {
@@ -536,7 +579,7 @@ class _myprofile extends State<myprofile> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
 
-              Row(
+            /*  Row(
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
@@ -568,7 +611,7 @@ class _myprofile extends State<myprofile> {
                     ],
                   ),
                 ],
-              ),
+              ),*/
 
               Padding(
                 padding: const EdgeInsets.only(left: 20.0,right: 20),
@@ -577,21 +620,48 @@ class _myprofile extends State<myprofile> {
                     alignment: Alignment.center,
                     children: [
                       SizedBox(
-                          width: 100,
-                          height: 100,
+                          width: 115,
+                          height: 115,
                           child: Image.asset("assets/halfcircle.png")),
                       // Front image
-                      SizedBox(
-                          width: 90,
-                          height: 90,
-                          child: Image.asset("assets/profilepic.png")),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: imageFile!= null ? CircleAvatar(backgroundImage: Image.file(imageFile!).image):Icon(Icons.person,size: 80,)),
+                          Positioned(
+                            bottom: -1,
+                            right: 2,
+                            child: Container(
+                              width: 30,
+                              height: 30,
+                              decoration: ShapeDecoration(
+                                shape: CircleBorder(),
+                                color: Color(0xffCC0000),
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  _getFromGallery();
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                         ]
+                      ),
                     ],
                   ),
                 ),
               ),
 
+
               Padding(
-                padding: const EdgeInsets.only(top: 10.0,bottom: 8),
+                padding: const EdgeInsets.only(top: 10.0,bottom: 10),
                 child: Center(
                   child: Text("14788888",style: TextStyle(
                       color: Color(0xffCC0000),
@@ -601,8 +671,80 @@ class _myprofile extends State<myprofile> {
                 ),
               ),
 
+
+
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
+                child: Row(
+                  children: [
+                    Text("Photo Album",style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text("( Fill in all to get \u{1FA99} )",style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.blue
+                    ),),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: DottedBorder(
+                    //customPath: (size) => customPath, // PathBuilder
+                    color: Colors.grey,
+                    dashPattern: [8, 4],
+                    strokeWidth: 2,
+                    child: Container(
+                      height: 100,
+                      width: 100,
+                      color: Colors.grey.withAlpha(40),
+                      child: IconButton(
+                        icon: Icon(Icons.add,size: 30,),
+                        onPressed: () {
+                          getimageslist();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+
+              imagesfile != null?Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Wrap(
+                    children: imagesfile.map((imageone){
+                      return Card(
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap:(){
+                              },
+                              child: Container(
+                                height: 100, width:100,
+                                child: Image.file(File(imageone.path)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ):Container(),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 20),
                 child: Row(
                   children: [
                     Text("Basic Information",style: TextStyle(
@@ -615,34 +757,55 @@ class _myprofile extends State<myprofile> {
                      ),
                      Text("( Fill in all to get \u{1FA99} )",style: TextStyle(
                       fontSize: 12,
-                      color: Colors.black
+                      color: Colors.blue
                     ),),
                   ],
                 ),
               ),
 
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Nick Name",style: TextStyle(
+                    const Text("Nick Name",style: TextStyle(
                         fontSize: 14,
                         color: Colors.black
                     ),),
                     SizedBox(
                       width: 5,
                     ),
-                    Text("142678999",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                       controller:  nickname,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
 
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -653,16 +816,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  birthday,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black
+                       ),
+                       decoration: InputDecoration(
+                         isDense: true,
+                         border: InputBorder.none,
+                         hintText: "unfiled",
+                         hintStyle: TextStyle(
+                           color: Colors.black,
+                           fontSize: 14
+                         )
+                       ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -673,16 +855,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:city,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -693,16 +894,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  height,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -713,16 +933,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  weight,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -733,16 +972,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  language,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -753,16 +1011,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  gender,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black
+                       ),
+                       decoration: InputDecoration(
+                         isDense: true,
+                         border: InputBorder.none,
+                         hintText: "unfiled",
+                         hintStyle: TextStyle(
+                           color: Colors.black,
+                           fontSize: 14
+                         )
+                       ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -773,16 +1050,35 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  haircolor,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black
+                       ),
+                       decoration: InputDecoration(
+                         isDense: true,
+                         border: InputBorder.none,
+                         hintText: "unfiled",
+                         hintStyle: TextStyle(
+                           color: Colors.black,
+                           fontSize: 14
+                         )
+                       ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -793,24 +1089,44 @@ class _myprofile extends State<myprofile> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("unfiled",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  interest,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black
+                       ),
+                       decoration: InputDecoration(
+                         isDense: true,
+                         border: InputBorder.none,
+                         hintText: "unfiled",
+                         hintStyle: TextStyle(
+                           color: Colors.black,
+                           fontSize: 14
+                         )
+                       ),
+                      ),
+                    ),
                   ],
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 40),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  height: 35,
+                  height: 42,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(25),
                     color: Color(0xffCC0000),
                   ),
                   child: FlatButton(
                     onPressed: (){
+                      circle(context);
+                      update_profile("first_name", "last_name", "email_address", user_id, "user_name",
+                          "country", "state", "city", "pincode", "address", "User", "profile_image", "profile_video");
                     },
                     child: Text("SAVE",
                       textAlign: TextAlign.center,
@@ -828,5 +1144,88 @@ class _myprofile extends State<myprofile> {
           ),
         )
     );
+  }
+
+  Future getimageslist() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg','png'],
+    );
+    if (result != null) {
+      setState(() {
+        imagesfile = result.paths.map((path) => File(path!)).toList();
+        for(int i =0; i<result.count;i++){
+        }
+        print("resumefile$imagesfile");
+      });
+    }
+    else {
+
+    }
+    // User canceled the picker
+  }
+
+  update_profile(String first_name,String last_name,String email_address ,String user_id ,String user_name ,String country ,
+      String state ,String city,String pincode,String address,String type,String profile_image, String profile_video
+      ) async {
+    String postUrl = "https://hookupindia.in/hookup/ApiController/updateUserProfile";
+    print("stringrequest");
+    var request = new http.MultipartRequest(
+        "POST", Uri.parse(postUrl));
+    request.fields['first_name'] = first_name;
+    request.fields['last_name'] = last_name;
+    request.fields['email_address'] = email_address;
+    request.fields['user_id'] = user_id;
+    request.fields['user_name'] = user_name;
+    request.fields['country'] = country;
+    request.fields['state'] = state;
+    request.fields['city'] = city;
+    request.fields['pincode'] = pincode;
+    request.fields['address'] = address;
+    request.fields['type'] = type;
+    request.fields['profile_image'] = profile_image;
+    request.fields['profile_video'] = profile_video;
+
+    request.send().then((response) {
+      http.Response.fromStream(response).then((onValue) {
+        try {
+          Navigator.pop(context);
+          print("onValue1${onValue.body}");
+          Map mapRes = json.decode(onValue.body);
+          var status= mapRes["status"];
+          if (status == "1")
+          {
+            setState(() {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => home_home()));
+            });
+          }
+          else{
+            Fluttertoast.showToast(
+                msg: mapRes["message"],
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1
+            );
+          }
+          //   print("getdatata$email $name)");
+
+        } catch (e) {
+          print("response$e");
+        }
+      });
+    });
+  }
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      // maxWidth: 1800,
+      // maxHeight: 1800,
+    );
+    setState(() {
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+      }
+    });
   }
 }
