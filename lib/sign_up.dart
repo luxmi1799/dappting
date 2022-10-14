@@ -309,10 +309,8 @@ class _sign_up extends State<sign_up> {
                                       setState(() {
                                         countryval = newValue;
                                         circle(context);
-                                        print("countryval $countryval");
-                                        // country_id = (mymodel.indexOf(newValue!)+1).toString();
+                                         print("countryval $countryval");
                                          state_c(int.parse(countryval!));
-                                        // curreny_c(mymodel.indexOf(newValue)+1);
                                       });
                                       print(countryval);
                                     },
@@ -571,6 +569,7 @@ class _sign_up extends State<sign_up> {
      ]
     );
   }
+
   Future<String> state_c(int country) async {
     stateval=null;
     String postUrl = "https://hookupindia.in/hookup/ApiController/stateList";
@@ -595,7 +594,6 @@ class _sign_up extends State<sign_up> {
     });
     return country.toString();
   }
-
   Future<String> city_c(int state) async {
     cityval=null;
     String postUrl = "https://hookupindia.in/hookup/ApiController/cityList";

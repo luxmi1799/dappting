@@ -1,5 +1,6 @@
 import 'package:dapp/login.dart';
 import 'package:dapp/provider/country_provider.dart';
+import 'package:dapp/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -14,6 +15,23 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<country_provider>(create: (context)=>country_provider()),
+        ChangeNotifierProvider<apperance_provider>(create: (context)=>apperance_provider()),
+        ChangeNotifierProvider<ethencity_provider>(create: (context)=>ethencity_provider()),
+        ChangeNotifierProvider<childrenhave_provider>(create: (context)=>childrenhave_provider()),
+        ChangeNotifierProvider<children_want_provider>(create: (context)=>children_want_provider()),
+        ChangeNotifierProvider<body_type_provider>(create: (context)=>body_type_provider()),
+        ChangeNotifierProvider<drink_provider>(create: (context)=>drink_provider()),
+        ChangeNotifierProvider<education_provider>(create: (context)=>education_provider()),
+        ChangeNotifierProvider<english_provider>(create: (context)=>english_provider()),
+        ChangeNotifierProvider<eye_color_provider>(create: (context)=>eye_color_provider()),
+        ChangeNotifierProvider<hair_color_provider>(create: (context)=>hair_color_provider()),
+        ChangeNotifierProvider<height_provider>(create: (context)=>height_provider()),
+        ChangeNotifierProvider<occupation_provider>(create: (context)=>occupation_provider()),
+        ChangeNotifierProvider<maritial_provider>(create: (context)=>maritial_provider()),
+        ChangeNotifierProvider<religion_provider>(create: (context)=>religion_provider()),
+        ChangeNotifierProvider<smoke_provider>(create: (context)=>smoke_provider()),
+        ChangeNotifierProvider<starsign_provider>(create: (context)=>starsign_provider()),
+        ChangeNotifierProvider<weight_provider>(create: (context)=>weight_provider()),
       ],
       child: MaterialApp(
         title: 'Splash Screen',

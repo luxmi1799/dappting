@@ -1,3 +1,4 @@
+import 'package:dapp/female_user/female_edit_profile.dart';
 import 'package:flutter/material.dart';
 
 class female_profile extends StatefulWidget{
@@ -59,20 +60,25 @@ class _female_profile extends State<female_profile> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: Image.asset("assets/profile_eyecircle.png")
-                                ),
-                                // Front image
-                                SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: Image.asset("assets/edit.png")),
-                              ],
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => female_edit_profile()));
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                      width: 30,
+                                      height: 30,
+                                      child: Image.asset("assets/profile_eyecircle.png")
+                                  ),
+                                  // Front image
+                                  SizedBox(
+                                      width: 16,
+                                      height: 16,
+                                      child: Image.asset("assets/edit.png")),
+                                ],
+                              ),
                             ),
 
                             Padding(

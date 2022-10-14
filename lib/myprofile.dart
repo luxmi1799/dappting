@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:dapp/loading_bar.dart';
+import 'package:dapp/provider/country_provider.dart';
+import 'package:dapp/provider/profile_provider.dart';
 import 'package:http/http.dart'as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dapp/editprofile.dart';
@@ -9,11 +11,15 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'bottomsheet/bottomsheetapperance.dart';
 import 'home_activity.dart';
 
 bool editprof = false;
+String appreance = "unfiled";
+
 class myprofile extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -24,6 +30,7 @@ class myprofile extends StatefulWidget{
 class _myprofile extends State<myprofile> {
   double _opacity = 0.9;
   List<File> imagesfile =[];
+
   var nickname = new TextEditingController();
   var birthday = new TextEditingController();
   var city = new TextEditingController();
@@ -35,15 +42,45 @@ class _myprofile extends State<myprofile> {
   var interest = new TextEditingController();
   var user_id;
   File? imageFile;
-
+  List nicknamed = [];
+  String? nicknameval;
+  List heightmap = [];
+  String? heightval;
+  List weightmap = [];
+  String? weightval;
+  List drinkmap = [];
+  String? drinkval;
+  List smokemap = [];
+  String? smokeval;
+  List maritialmap = [];
+  String? maritialval;
+  List educationmap = [];
+  String? educationval;
+  List wordsmap = [];
+  String? wordsval;
+  List partnermap = [];
+  String? partnerval;
+  List relationmap = [];
+  String? relationalval;
+  String? countryval;
+  List mycountry = [];
+  String? stateval ;
+  List statelist = [];
+  List citylist = [];
+  String? cityval = null;
 
   void initState() {
     super.initState();
-    // loading(context);
-    //context.read<country_provider>().country_list();
+    context.read<apperance_provider>().apperance_list();
+    context.read<height_provider>().height_list();
+    context.read<weight_provider>().weight_list();
+    context.read<drink_provider>().drink_list();
+    context.read<smoke_provider>().smoke_list();
+    context.read<maritial_provider>().maritial_list();
+    context.read<education_provider>().eductaion_list();
+    context.read<country_provider>().country_list();
     Future.delayed(Duration(seconds: 2), () {});
     get_blogdetails(context);
-    // isNumeric("8076799976");
   }
 
   get_blogdetails(BuildContext context) async {
@@ -538,6 +575,14 @@ class _myprofile extends State<myprofile> {
     );
   }
   Widget editprofile(BuildContext context){
+    context.read<apperance_provider>().apperance_list();
+    context.read<height_provider>().height_list();
+    context.read<weight_provider>().weight_list();
+    context.read<drink_provider>().drink_list();
+    context.read<smoke_provider>().smoke_list();
+    context.read<maritial_provider>().maritial_list();
+    context.read<education_provider>().eductaion_list();
+    context.read<country_provider>().country_list();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -673,7 +718,7 @@ class _myprofile extends State<myprofile> {
 
 
 
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Row(
                   children: [
@@ -692,7 +737,6 @@ class _myprofile extends State<myprofile> {
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20),
                 child: Align(
@@ -715,7 +759,7 @@ class _myprofile extends State<myprofile> {
                     ),
                   ),
                 ),
-              ),
+              ), */
 
 
               imagesfile != null?Padding(
@@ -763,12 +807,13 @@ class _myprofile extends State<myprofile> {
                 ),
               ),
 
+
               Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 20,right: 0),
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Nick Name",style: TextStyle(
+                    Text("First Name",style: TextStyle(
                         fontSize: 14,
                         color: Colors.black
                     ),),
@@ -779,7 +824,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                       controller:  nickname,
+                        controller:  birthday,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -798,7 +843,47 @@ class _myprofile extends State<myprofile> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
 
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Last Name",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  birthday,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Divider(),
@@ -809,7 +894,990 @@ class _myprofile extends State<myprofile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Birthday",style: TextStyle(
+                    Text("Nick Name",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  weight,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "unfiled",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Pincode",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller:  birthday,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "pincode",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Address",style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black
+                    ),),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 70,
+                      height: 30,
+                      child: TextField(
+                        controller:  birthday,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black
+                        ),
+                        decoration: InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText: "address",
+                            hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14
+                            )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<country_provider>(
+                    builder: (context,value,child) {
+                      mycountry = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Country", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("country",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: countryval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  countryval = newValue;
+                                  circle(context);
+                                  print("countryval $countryval");
+                                  state_c(int.parse(countryval!));
+                                });
+                                print(countryval);
+                              },
+                              items: mycountry.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['country'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                          // Container(
+                          //   width: 70,
+                          //   height: 30,
+                          //   child: Text(
+                          //     appreance,
+                          //   // controller:  nickname,
+                          //     style: TextStyle(
+                          //         fontSize: 14,
+                          //         color: Colors.black
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("State", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("state",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: stateval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  stateval = newValue;
+                                  circle(context);
+                                  print("countryval $stateval");
+                                  city_c(int.parse(stateval!));
+                                });
+                                print(stateval);
+                              },
+                              items: statelist.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['state'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                        ],
+                      )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                  padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("City", style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black
+                      ),),
+                      // SizedBox(
+                      //   width: 5,
+                      // ),
+
+                      Container(
+                        width: 100,
+                        height: 30,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          // border: const Border(
+                          //   left: BorderSide(
+                          //     color: Colors.blue,
+                          //     width: 8,
+                          //   ),
+                          // ),
+                        ),
+                        child: DropdownButton<String>(
+                          //  itemHeight: 50,
+                          underline: const SizedBox(),
+                          dropdownColor: Colors.white,
+                          style: TextStyle(
+                              color: Colors.black
+                          ),
+                          isExpanded: true,
+                          hint: Padding(
+                            padding: const EdgeInsets.all(7.0),
+                            child: Text("city",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),),
+                          ),
+                          icon: Icon( // Add this
+                            Icons.arrow_forward_ios,
+                            // Add this
+                            color: Colors.black,
+                            size: 12, // Add this
+                          ),
+                          value: cityval,
+                          isDense: false,
+                          onChanged: (newValue) {
+                            setState(() {
+                              cityval = newValue;
+                            });
+                            print(cityval);
+                          },
+                          items: citylist.map((item) {
+                            return DropdownMenuItem(
+                              child: new Text(item['city'],
+                                style: TextStyle(
+                                    fontSize: 14
+                                ),),
+                              value: item['id'].toString(),
+                              // value: item['id'].toString(),
+                            );
+                          }).toList(),
+                        ),)
+                    ],
+                  )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<height_provider>(
+                    builder: (context,value,child) {
+                      heightmap = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Height", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("unfiled",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: heightval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  heightval = newValue;
+                                });
+                                print(heightval);
+                              },
+                              items: heightmap.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['name'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<apperance_provider>(
+                    builder: (context,value,child) {
+                      nicknamed = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Appearence", style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black
+                            ),),
+                            // SizedBox(
+                            //   width: 5,
+                            // ),
+
+                            Container(
+                              width: 100,
+                              height: 30,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                // border: const Border(
+                                //   left: BorderSide(
+                                //     color: Colors.blue,
+                                //     width: 8,
+                                //   ),
+                                // ),
+                              ),
+                              child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                                underline: const SizedBox(),
+                                dropdownColor: Colors.white,
+                                style: TextStyle(
+                                    color: Colors.black
+                                ),
+                                isExpanded: true,
+                                hint: Padding(
+                                  padding: const EdgeInsets.all(7.0),
+                                  child: Text("unfiled",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                    ),),
+                                ),
+                                icon: Icon( // Add this
+                                  Icons.arrow_forward_ios,
+                                  // Add this
+                                  color: Colors.black,
+                                  size: 12, // Add this
+                                ),
+                                value: nicknameval,
+                                isDense: false,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    nicknameval = newValue;
+                                  });
+                                  print(nicknameval);
+                                },
+                                items: nicknamed.map((item) {
+                                  return DropdownMenuItem(
+                                    child: new Text(item['name'],
+                                      style: TextStyle(
+                                      fontSize: 14
+                                    ),),
+                                    value: item['id'].toString(),
+                                    // value: item['id'].toString(),
+                                  );
+                                }).toList(),
+                              ),)
+                            // Container(
+                            //   width: 70,
+                            //   height: 30,
+                            //   child: Text(
+                            //     appreance,
+                            //   // controller:  nickname,
+                            //     style: TextStyle(
+                            //         fontSize: 14,
+                            //         color: Colors.black
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<drink_provider>(
+                    builder: (context,value,child) {
+                      drinkmap = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Drink", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("unfiled",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: drinkval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  drinkval = newValue;
+                                });
+                                print(drinkval);
+                              },
+                              items: drinkmap.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['name'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                          // Container(
+                          //   width: 70,
+                          //   height: 30,
+                          //   child: Text(
+                          //     appreance,
+                          //   // controller:  nickname,
+                          //     style: TextStyle(
+                          //         fontSize: 14,
+                          //         color: Colors.black
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<smoke_provider>(
+                    builder: (context,value,child) {
+                      smokemap = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Smoke", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("unfiled",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: smokeval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  smokeval = newValue;
+                                });
+                                print(smokeval);
+                              },
+                              items: smokemap.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['name'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                          // Container(
+                          //   width: 70,
+                          //   height: 30,
+                          //   child: Text(
+                          //     appreance,
+                          //   // controller:  nickname,
+                          //     style: TextStyle(
+                          //         fontSize: 14,
+                          //         color: Colors.black
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<maritial_provider>(
+                    builder: (context,value,child) {
+                      maritialmap = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Maritial Status", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("unfiled",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: maritialval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  maritialval = newValue;
+                                });
+                                print(maritialval);
+                              },
+                              items: maritialmap.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['name'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<education_provider>(
+                    builder: (context,value,child) {
+                      educationmap = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Education", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("unfiled",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: educationval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  educationval = newValue;
+                                });
+                                print(educationval);
+                              },
+                              items: educationmap.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['name'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Own Words",style: TextStyle(
                         fontSize: 14,
                         color: Colors.black
                     ),),
@@ -843,12 +1911,13 @@ class _myprofile extends State<myprofile> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Divider(),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("City",style: TextStyle(
+                    Text("Looking Partner",style: TextStyle(
                         fontSize: 14,
                         color: Colors.black
                     ),),
@@ -887,7 +1956,7 @@ class _myprofile extends State<myprofile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Height",style: TextStyle(
+                    Text("Relationship Looking For",style: TextStyle(
                         fontSize: 14,
                         color: Colors.black
                     ),),
@@ -912,201 +1981,6 @@ class _myprofile extends State<myprofile> {
                                 fontSize: 14
                             )
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Weight",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 70,
-                      height: 30,
-                      child: TextField(
-                        controller:  weight,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black
-                        ),
-                        decoration: InputDecoration(
-                            isDense: true,
-                            border: InputBorder.none,
-                            hintText: "unfiled",
-                            hintStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14
-                            )
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Language",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 70,
-                      height: 30,
-                      child: TextField(
-                        controller:  language,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black
-                        ),
-                        decoration: InputDecoration(
-                            isDense: true,
-                            border: InputBorder.none,
-                            hintText: "unfiled",
-                            hintStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14
-                            )
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Sexual Orientation",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 70,
-                      height: 30,
-                      child: TextField(
-                        controller:  gender,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black
-                       ),
-                       decoration: InputDecoration(
-                         isDense: true,
-                         border: InputBorder.none,
-                         hintText: "unfiled",
-                         hintStyle: TextStyle(
-                           color: Colors.black,
-                           fontSize: 14
-                         )
-                       ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Hair Color",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 70,
-                      height: 30,
-                      child: TextField(
-                        controller:  haircolor,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black
-                       ),
-                       decoration: InputDecoration(
-                         isDense: true,
-                         border: InputBorder.none,
-                         hintText: "unfiled",
-                         hintStyle: TextStyle(
-                           color: Colors.black,
-                           fontSize: 14
-                         )
-                       ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Divider(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Interests",style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 70,
-                      height: 30,
-                      child: TextField(
-                        controller:  interest,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black
-                       ),
-                       decoration: InputDecoration(
-                         isDense: true,
-                         border: InputBorder.none,
-                         hintText: "unfiled",
-                         hintStyle: TextStyle(
-                           color: Colors.black,
-                           fontSize: 14
-                         )
-                       ),
                       ),
                     ),
                   ],
@@ -1145,6 +2019,7 @@ class _myprofile extends State<myprofile> {
         )
     );
   }
+
 
   Future getimageslist() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -1216,6 +2091,7 @@ class _myprofile extends State<myprofile> {
       });
     });
   }
+
   _getFromGallery() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
       source: ImageSource.gallery,
@@ -1227,5 +2103,54 @@ class _myprofile extends State<myprofile> {
         imageFile = File(pickedFile.path);
       }
     });
+  }
+
+  Future<String> state_c(int country) async {
+    stateval=null;
+    String postUrl = "https://hookupindia.in/hookup/ApiController/stateList";
+    print("stringrequest");
+    var request = new http.MultipartRequest(
+        "POST", Uri.parse(postUrl));
+    request.fields['country'] = country.toString();
+    request.send().then((response) {
+      http.Response.fromStream(response).then((onValue) {
+        try {
+          Navigator.pop(context);
+          Map mapRes = json.decode(onValue.body);
+          setState(() {
+            statelist = mapRes["data"];
+
+          });
+          print("response$statelist");
+        } catch (e) {
+          print("response$e");
+        }
+      });
+    });
+    return country.toString();
+  }
+
+  Future<String> city_c(int state) async {
+    cityval=null;
+    String postUrl = "https://hookupindia.in/hookup/ApiController/cityList";
+    print("stringrequest");
+    var request = new http.MultipartRequest(
+        "POST", Uri.parse(postUrl));
+    request.fields['state'] = state.toString();
+    request.send().then((response) {
+      http.Response.fromStream(response).then((onValue) {
+        try {
+          Navigator.pop(context);
+          Map mapRes = json.decode(onValue.body);
+          setState(() {
+            citylist = mapRes["data"];
+          });
+          print("response$citylist");
+        } catch (e) {
+          print("response$e");
+        }
+      });
+    });
+    return state.toString();
   }
 }

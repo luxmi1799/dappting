@@ -4,6 +4,7 @@ import 'package:dapp/hotpage.dart';
 import 'package:dapp/myprofile.dart';
 import 'package:dapp/newhot.dart';
 import 'package:dapp/profile_dashboard.dart';
+import 'package:dapp/screens/home_page.dart';
 import 'package:dapp/show_profile.dart';
 import 'package:dapp/swipecard.dart';
 import 'package:dapp/vipaccess.dart';
@@ -24,7 +25,7 @@ class _home extends State<home_home> {
   int currentTabIndex = 0;
   List<Widget> tabs = [
    // Example(),
-    hot_new(),
+    home_user(),
    // home_match(),
     hotpage(),
     chatmessage(),
