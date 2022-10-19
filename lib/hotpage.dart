@@ -1,6 +1,9 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:dapp/profile_dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 List discover1 = ["assets/discover1.png","assets/discover4.png"];
 List discover2 = ["assets/discover2.png","assets/discover5.png"];
@@ -15,6 +18,29 @@ class hotpage extends StatefulWidget{
 
 class _hot_match extends State<hotpage> {
   double _opacity = 0.9;
+  var hotprofile;
+
+
+  @override
+  void initState() {
+    super.initState();
+    getmembership();
+  }
+
+  Future<String> getmembership() async {
+    //replace your restFull API here.
+    String url = "https://hookupindia.in/hookup/ApiController/hotList";
+    final response = await http.get(Uri.parse(url));
+
+    var responseData = json.decode(response.body);
+    setState(() {
+      hotprofile = responseData["data"]["HostList"];
+    });
+    print("hotprofile $hotprofile");
+    //Creating a list to store input data;
+    return "users";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -48,8 +74,8 @@ class _hot_match extends State<hotpage> {
               elevation: 0.0,
             ),
 
-      body: SingleChildScrollView(
-              child: Column(
+        body: SingleChildScrollView(
+              child: hotprofile!=null?Column(
                 children: [
 
                   SizedBox(
@@ -58,7 +84,7 @@ class _hot_match extends State<hotpage> {
 
                   ListView.builder(
                     // the number of items in the list
-                      itemCount: 2,
+                      itemCount: hotprofile.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       physics: ScrollPhysics(),
@@ -68,7 +94,7 @@ class _hot_match extends State<hotpage> {
                               padding: const EdgeInsets.only(top: 10,left: 20,right: 20,bottom: 15),
                               child: Container(
                                width: MediaQuery.of(context).size.width,
-                                height: 460,
+                                height: MediaQuery.of(context).size.height*.62,
                                 decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                   color: Color(0xfff5cccc),
@@ -78,7 +104,35 @@ class _hot_match extends State<hotpage> {
                                     SizedBox(
                                      height: 10,
                                     ),
-                                    Row(
+
+                                    Container(
+                                      height: 360,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: MasonryGridView.count(
+                                          crossAxisSpacing: 8,
+                                          mainAxisSpacing: 8,
+                                          scrollDirection: Axis.vertical,
+                                          physics: NeverScrollableScrollPhysics(),
+                                          itemCount: hotprofile[index]["GalleryList"].length,
+                                          itemBuilder: (context,i){
+                                            return hotprofile[index]["GalleryList"][i]["image"]!=""?ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: Image.network(hotprofile[index]["GalleryList"][i]["image"])
+                                            ): Align(
+                                                alignment: Alignment.center,
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(30),
+                                                  child: Image.network(hotprofile[index]["profile_image"],width: 200,height: 200,fit: BoxFit.cover,),
+                                              ),
+                                            );
+                                          }, crossAxisCount: 2,
+                                        ),
+                                      ),
+                                    ),
+
+
+                                    /* Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Padding(
@@ -149,7 +203,7 @@ class _hot_match extends State<hotpage> {
                                           ],
                                         ),
                                       ],
-                                    ),
+                                    ), */
                                     
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical:6.0,horizontal: 20),
@@ -160,7 +214,7 @@ class _hot_match extends State<hotpage> {
                                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=> profile_dashboard()));
                                           },
                                           child: Text(
-                                              "Oluchi Mazi 24",
+                                              hotprofile[index]["name"],
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 17,
@@ -205,7 +259,7 @@ class _hot_match extends State<hotpage> {
                           );
                    }),
                 ],
-              ),
+              ):Center(child: CircularProgressIndicator(),),
             )
         ),
       ],

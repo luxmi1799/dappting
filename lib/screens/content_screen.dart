@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:http/http.dart' as http;
 import 'like_icon.dart';
 import 'options_screen.dart';
 
 class ContentScreen extends StatefulWidget {
   final String? src;
-
-  const ContentScreen({Key? key, this.src}) : super(key: key);
+  final int? index;
+  const ContentScreen({Key? key, this.src,this.index}) : super(key: key);
 
   @override
   _ContentScreenState createState() => _ContentScreenState();
@@ -18,11 +20,13 @@ class _ContentScreenState extends State<ContentScreen> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _liked = false;
+  var getuser;
   @override
   void initState() {
     super.initState();
     initializePlayer();
   }
+
 
   Future initializePlayer() async {
     _videoPlayerController = VideoPlayerController.network(widget.src!);
@@ -72,7 +76,7 @@ class _ContentScreenState extends State<ContentScreen> {
           Center(
             child: LikeIcon(),
           ),
-        OptionsScreen()
+        OptionsScreen(index: widget.index,)
       ],
     );
   }

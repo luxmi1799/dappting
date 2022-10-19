@@ -1,6 +1,8 @@
 import 'package:dapp/show_profile.dart';
 import 'package:dapp/vipaccess.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class profile_dashboard extends StatefulWidget{
   @override
@@ -10,11 +12,33 @@ class profile_dashboard extends StatefulWidget{
 }
 
 class _profile_d extends State<profile_dashboard> {
+ var getuser;
+
+ @override
+  void initState() {
+//
+   super.initState();
+   getRequest();
+  }
+
+  Future<String> getRequest() async {
+    //replace your restFull API here.
+    String url = "https://hookupindia.in/hookup/ApiController/userHostList";
+    final response = await http.get(Uri.parse(url));
+
+    var responseData = json.decode(response.body);
+    setState(() {
+      getuser = responseData["data"]["HostList"];
+    });
+    print("getuserc $getuser");
+    //Creating a list to store input data;
+    return "users";
+  }
   @override
   Widget build(BuildContext context) {
       return Scaffold(
         body: SingleChildScrollView(
-          child: Column(
+          child:getuser!=null? Column(
             children: [
               SizedBox(height: 10,),
               Image.asset("assets/banner.png",height: 150,width: MediaQuery.of(context).size.width,fit: BoxFit.cover,),
@@ -36,7 +60,7 @@ class _profile_d extends State<profile_dashboard> {
                     gridDelegate:
                     new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                     scrollDirection: Axis.vertical,
-                    itemCount: 6,
+                    itemCount: getuser.length,
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -56,7 +80,7 @@ class _profile_d extends State<profile_dashboard> {
                            decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                            image: DecorationImage(
-                           image: AssetImage("assets/discover1.png"),
+                           image: NetworkImage(getuser[index]["profile_image"]),
                             fit: BoxFit.fitWidth,
                             alignment: Alignment.topCenter,
                              ),
@@ -101,7 +125,7 @@ class _profile_d extends State<profile_dashboard> {
                                                   children: [
                                                     Padding(
                                                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                                      child: Text("Tiffany ",
+                                                      child: Text(getuser[index]["name"],
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 13,
@@ -174,7 +198,7 @@ class _profile_d extends State<profile_dashboard> {
                     },
                   )
             ],
-          ),
+          ):Container(),
         ),
       );
   }

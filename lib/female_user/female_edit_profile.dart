@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:path/path.dart' as path;
 import 'package:dapp/female_user/female_home_activity.dart';
 import 'package:dapp/loading_bar.dart';
 import 'package:dapp/provider/country_provider.dart';
@@ -11,6 +12,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart%20';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
@@ -391,7 +393,9 @@ class _myprofile extends State<female_edit_profile> {
                           } else {
                             // If the VideoPlayerController is still initializing, show a
                             // loading spinner.
-                            return Center(child: CircularProgressIndicator());
+                            return Center(
+                               child: CircularProgressIndicator()
+                            );
                           }
                         },
                       ): DottedBorder(
@@ -1009,6 +1013,99 @@ class _myprofile extends State<female_edit_profile> {
                                 print(heightval);
                               },
                               items: heightmap.map((item) {
+                                return DropdownMenuItem(
+                                  child: new Text(item['name'],
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),),
+                                  value: item['id'].toString(),
+                                  // value: item['id'].toString(),
+                                );
+                              }).toList(),
+                            ),)
+                        ],
+                      );
+                    }
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Divider(),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,right: 0),
+                child: Consumer<weight_provider>(
+                    builder: (context,value,child) {
+                      weightmap = value.map["data"];
+                      return value.map.length == 0 && !value.error
+                          ? CircularProgressIndicator()
+                          : value.error ? Text("Opps SOmething went wrong") :
+                      // InkWell(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       //showbottomsheet(context);
+                      //     });
+                      //     print("apperance1 $appreance");
+                      //   },
+                      //   child:
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Weight", style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black
+                          ),),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+
+                          Container(
+                            width: 100,
+                            height: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // border: const Border(
+                              //   left: BorderSide(
+                              //     color: Colors.blue,
+                              //     width: 8,
+                              //   ),
+                              // ),
+                            ),
+                            child: DropdownButton<String>(
+                              //  itemHeight: 50,
+                              underline: const SizedBox(),
+                              dropdownColor: Colors.white,
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.all(7.0),
+                                child: Text("unfiled",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                  ),),
+                              ),
+                              icon: Icon( // Add this
+                                Icons.arrow_forward_ios,
+                                // Add this
+                                color: Colors.black,
+                                size: 12, // Add this
+                              ),
+                              value: weightval,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  weightval = newValue;
+                                });
+                                print(weightval);
+                              },
+                              items: weightmap.map((item) {
                                 return DropdownMenuItem(
                                   child: new Text(item['name'],
                                     style: TextStyle(
@@ -2384,8 +2481,13 @@ class _myprofile extends State<female_edit_profile> {
                   child: FlatButton(
                     onPressed: (){
                       circle(context);
-                      // update_profile("first_name", "last_name", "email_address", user_id, "user_name",
-                      //     "country", "state", "city", "pincode", "address", "User", "profile_image", "profile_video");
+                      print("smokeval $imagesfile $imageFile $videoFile1");
+                      update_profile(fname.text, lname.text, "", user_id, nickname.text, countryval!, stateval!, cityval!,
+                          pincode.text, address.text, "Host", imageFile!, videoFile1!, haircolorval!, eyecolorval!,
+                          heightval!, weightval!, bodytypeval!, ethencityval!, nicknameval!, drinkval!, smokeval!, maritialval!,
+                          childrenhaveval!, childrenwantval!, "occu", relationship.text, educationval!, englishval!, "religion",
+                          own_words.text, "", looking_partner.text , ""
+                      );
                     },
                     child: Text("SAVE",
                       textAlign: TextAlign.center,
@@ -2415,6 +2517,7 @@ class _myprofile extends State<female_edit_profile> {
     if (result != null) {
       setState(() {
         imagesfile = result.paths.map((path) => File(path!)).toList();
+
         for(int i =0; i<result.count;i++){
         }
         print("resumefile$imagesfile");
@@ -2445,10 +2548,12 @@ class _myprofile extends State<female_edit_profile> {
   }
 
   update_profile(String first_name,String last_name,String email_address ,String user_id ,String user_name ,String country ,
-      String state ,String city,String pincode,String address,String type,String profile_image, String profile_video,
+      String state ,String city,String pincode,String address,String type,File profile_image, File profile_video,
       String hair_color,String eye_color , String height , String weight , String body_type , String ethnicity ,
       String my_appearance , String drink , String smoke , String marital_status , String children_have , String children_want,
-      String occupation ,String relationship_looking_for , String education , String english_ability , String religion
+      String occupation ,String relationship_looking_for , String education , String english_ability , String religion,
+      //List gallery,
+      String own_words,String little_yourself , String looking_partner , String star_sign
       ) async {
     String postUrl = "https://hookupindia.in/hookup/ApiController/updateUserProfile";
     print("stringrequest");
@@ -2465,8 +2570,8 @@ class _myprofile extends State<female_edit_profile> {
     request.fields['pincode'] = pincode;
     request.fields['address'] = address;
     request.fields['type'] = type;
-    request.fields['profile_image'] = profile_image;
-    request.fields['profile_video'] = profile_video;
+    // request.fields['profile_image'] = profile_image;
+    // request.fields['profile_video'] = profile_video;
     request.fields['hair_color'] = hair_color;
     request.fields['eye_color'] = eye_color;
     request.fields['height'] = height;
@@ -2484,17 +2589,71 @@ class _myprofile extends State<female_edit_profile> {
     request.fields['education'] = education;
     request.fields['english_ability'] = english_ability;
     request.fields['religion'] = religion;
+  //  request.fields['gallery'] = gallery.toString();
+    request.fields['own_words'] = own_words;
+    request.fields['little_yourself'] = little_yourself;
+    request.fields['looking_partner'] = looking_partner;
+    request.fields['star_sign'] = star_sign;
+    request.files.add(await http.MultipartFile.fromPath('profile_image', profile_image.path));
+    request.files.add(await http.MultipartFile.fromPath('profile_video', profile_video.path));
 
-    request.send().then((response) {
+   // List<http.MultipartFile> files = [];
+    // for(File file in imagesfile){
+    //   var f = await http.MultipartFile.fromPath('gallery',file.path);
+    //   files.add(f);
+    //   print("filess ${files}");
+    // }
+    // request.files.addAll(files);
+  //  var response = await request.send();
+    if (imagesfile.length > 0) {
+      for (var i = 0; i < imagesfile.length; i++) {
+        request.files.add(http.MultipartFile('gallery[]',
+            File(imagesfile[i].path).readAsBytes().asStream(),
+            File(imagesfile[i].path).lengthSync(),
+            filename: (imagesfile[i].path
+                .split("/")
+                .last)));
+      }
+
+      // send
+      var response = await request.send();
+
+      print("rescode"+response.statusCode.toString());
+
+      if(response.statusCode == 200){
+        Navigator.pop(context);
+      }
+      else{
+        Navigator.pop(context);
+        Fluttertoast.showToast(
+            msg: "Updated",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1
+        );
+      }
+// listen for response
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+    }
+    /*request.send().then((response) {
       http.Response.fromStream(response).then((onValue) {
         try {
           Navigator.pop(context);
-          print("onValue1${onValue.body}");
+
           Map mapRes = json.decode(onValue.body);
+          print("onValue1 ${onValue.body} $mapRes");
           var status= mapRes["status"];
           if (status == "1")
           {
             setState(() {
+              Fluttertoast.showToast(
+                  msg: mapRes["message"],
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1
+              );
               Navigator.push(context, MaterialPageRoute(builder: (context) => female_home()));
             });
           }
@@ -2512,7 +2671,8 @@ class _myprofile extends State<female_edit_profile> {
           print("response$e");
         }
       });
-    });
+     })*/
+    ;
   }
 
   _getFromGallery() async {

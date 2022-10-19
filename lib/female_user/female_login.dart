@@ -8,6 +8,7 @@ import 'package:dapp/home_activity.dart';
 import 'package:dapp/loading_bar.dart';
 import 'package:dapp/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -182,7 +183,7 @@ class _sign_up extends State<female_login> {
     print("stringrequest");
     var request = new http.MultipartRequest(
         "POST", Uri.parse(postUrl));
-    request.fields['Mobile'] = mobile;
+    request.fields['mobile'] = mobile;
     request.send().then((response) {
       http.Response.fromStream(response).then((onValue) {
         try {
@@ -205,6 +206,14 @@ class _sign_up extends State<female_login> {
             });
             userdata(user_id);
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => female_otp_screen()));
+          }
+          else{
+            Fluttertoast.showToast(
+                msg: "You're not registered",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1
+            );
           }
         } catch (e) {
           print("response$e");

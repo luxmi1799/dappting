@@ -7,6 +7,7 @@ import 'package:dapp/home_activity.dart';
 import 'package:dapp/loading_bar.dart';
 import 'package:dapp/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'login.dart';
@@ -107,6 +108,8 @@ class _sign_up extends State<create_account> {
                       ),
                     ),
                   ),
+
+
 
                   /*Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
@@ -223,7 +226,7 @@ class _sign_up extends State<create_account> {
     print("stringrequest");
     var request = new http.MultipartRequest(
         "POST", Uri.parse(postUrl));
-    request.fields['Mobile'] = mobile;
+    request.fields['mobile'] = mobile;
     request.send().then((response) {
       http.Response.fromStream(response).then((onValue) {
         try {
@@ -233,10 +236,10 @@ class _sign_up extends State<create_account> {
           var success = mapRes["status"];
           var msg = mapRes["message"];
 
-          if(success == 1){
+          if(success == "1"){
             var otpdetail= mapRes["data"]["otp"];
-            var user_id= mapRes["data"]["user_id"];
-            print("user_id$user_id");
+            var user_id= mapRes["data"]["user_id"].toString();
+            print("user_id $user_id");
             setState(() {
               var getotp = otpdetail;
               prefs.setString("new_account", "new_account");
@@ -244,11 +247,22 @@ class _sign_up extends State<create_account> {
               prefs.setString("otp_found",getotp);
               prefs.setString("user_id",user_id);
             });
+            // Fluttertoast.showToast(
+            //     msg: mapRes["message"],
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.CENTER,
+            //     timeInSecForIosWeb: 1
+            // );
             userdata(user_id);
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => otp_screen()));
           }
           else{
-
+            Fluttertoast.showToast(
+                msg: mapRes["message"],
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1
+            );
           }
 
         } catch (e) {

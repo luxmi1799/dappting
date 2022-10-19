@@ -32,14 +32,19 @@ class _myprofile extends State<myprofile> {
   List<File> imagesfile =[];
 
   var nickname = new TextEditingController();
+  var fname = new TextEditingController();
+  var lname = new TextEditingController();
   var birthday = new TextEditingController();
   var city = new TextEditingController();
   var height = new TextEditingController();
   var weight = new TextEditingController();
   var language = new TextEditingController();
   var gender = new TextEditingController();
-  var haircolor = new TextEditingController();
-  var interest = new TextEditingController();
+  var pincode = new TextEditingController();
+  var address = new TextEditingController();
+  var own_words = new TextEditingController();
+  var looking_partner = new TextEditingController();
+  var relationship = new TextEditingController();
   var user_id;
   File? imageFile;
   List nicknamed = [];
@@ -824,7 +829,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:  birthday,
+                        controller:  fname,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -865,7 +870,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:  birthday,
+                        controller:  lname,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -905,7 +910,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:  weight,
+                        controller:  nickname,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -946,7 +951,7 @@ class _myprofile extends State<myprofile> {
                       height: 30,
                       child: TextField(
                         keyboardType: TextInputType.number,
-                        controller:  birthday,
+                        controller:  pincode,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -986,7 +991,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:  birthday,
+                        controller:  address,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -1888,7 +1893,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:  birthday,
+                        controller:  own_words,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.black
@@ -1928,7 +1933,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:city,
+                        controller:looking_partner,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -1967,7 +1972,7 @@ class _myprofile extends State<myprofile> {
                       width: 70,
                       height: 30,
                       child: TextField(
-                        controller:  height,
+                        controller:  relationship,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black
@@ -1998,9 +2003,15 @@ class _myprofile extends State<myprofile> {
                   ),
                   child: FlatButton(
                     onPressed: (){
+                      List none = [];
                       circle(context);
-                      update_profile("first_name", "last_name", "email_address", user_id, "user_name",
-                          "country", "state", "city", "pincode", "address", "User", "profile_image", "profile_video");
+                       update_profile(fname.text,
+                           lname.text, "", user_id, nickname.text,
+                           countryval!, stateval!, cityval!, pincode.text, address.text, "User", imageFile!.path,
+                           "","", "", "", "", "", "",
+                           "", "", "", "", "", "",
+                           "", relationship.text, educationval!, "", "", none, own_words.text,
+                           "", looking_partner.text);
                     },
                     child: Text("SAVE",
                       textAlign: TextAlign.center,
@@ -2042,13 +2053,18 @@ class _myprofile extends State<myprofile> {
   }
 
   update_profile(String first_name,String last_name,String email_address ,String user_id ,String user_name ,String country ,
-      String state ,String city,String pincode,String address,String type,String profile_image, String profile_video
+      String state ,String city,String pincode,String address,String type,String profile_image, String profile_video,
+      String hair_color,String eye_color , String height , String weight , String body_type , String ethnicity ,
+      String my_appearance , String drink , String smoke , String marital_status , String children_have , String children_want,
+      String occupation ,String relationship_looking_for , String education , String english_ability , String religion,List gallery,String own_words,
+       String little_yourself ,String looking_partner
       ) async {
     String postUrl = "https://hookupindia.in/hookup/ApiController/updateUserProfile";
     print("stringrequest");
     var request = new http.MultipartRequest(
         "POST", Uri.parse(postUrl));
     request.fields['first_name'] = first_name;
+    request.fields['type'] = "User";
     request.fields['last_name'] = last_name;
     request.fields['email_address'] = email_address;
     request.fields['user_id'] = user_id;
@@ -2061,6 +2077,27 @@ class _myprofile extends State<myprofile> {
     request.fields['type'] = type;
     request.fields['profile_image'] = profile_image;
     request.fields['profile_video'] = profile_video;
+    request.fields['hair_color'] = hair_color;
+    request.fields['eye_color'] = eye_color;
+    request.fields['height'] = height;
+    request.fields['weight'] = weight;
+    request.fields['body_type'] = body_type;
+    request.fields['ethnicity'] = ethnicity;
+    request.fields['my_appearance'] = my_appearance;
+    request.fields['drink'] = drink;
+    request.fields['smoke'] = smoke;
+    request.fields['marital_status'] = marital_status;
+    request.fields['children_have'] = children_have;
+    request.fields['children_want'] = children_want;
+    request.fields['occupation'] = occupation;
+    request.fields['relationship_looking_for'] = relationship_looking_for;
+    request.fields['education'] = education;
+    request.fields['english_ability'] = english_ability;
+    request.fields['religion'] = religion;
+    request.fields['gallery'] = gallery.toString();
+    request.fields['own_words'] = own_words;
+    request.fields['little_yourself'] = little_yourself;
+    request.fields['looking_partner'] = looking_partner;
 
     request.send().then((response) {
       http.Response.fromStream(response).then((onValue) {
@@ -2072,6 +2109,12 @@ class _myprofile extends State<myprofile> {
           if (status == "1")
           {
             setState(() {
+              Fluttertoast.showToast(
+                  msg: mapRes["message"],
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1
+              );
               Navigator.push(context, MaterialPageRoute(builder: (context) => home_home()));
             });
           }

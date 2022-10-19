@@ -14,6 +14,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
     ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
     ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
+    ChatMessage(messageContent: "Hello, Will", messageType: "receiver"),
+    ChatMessage(messageContent: "How have you been?", messageType: "receiver"),
+    ChatMessage(messageContent: "Hey Kriss, I am doing fine dude. wbu?", messageType: "sender"),
+    ChatMessage(messageContent: "ehhhh, doing OK.", messageType: "receiver"),
+    ChatMessage(messageContent: "Is there any thing wrong?", messageType: "sender"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -58,8 +63,31 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         ),
       body: Stack(
         children: <Widget>[
+          ListView.builder(
+            itemCount: messages.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            padding: EdgeInsets.only(top: 10,bottom: 10),
+            physics:ScrollPhysics(),
+            itemBuilder: (context, index){
+              return Container(
+                padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
+                child: Align(
+                  alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: (messages[index].messageType  == "receiver"?Color(0xffCC0000):Color(0xff07D3DF)),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(messages[index].messageContent, style: TextStyle(fontSize: 15,color: Colors.white),),
+                  ),
+                ),
+              );
+            },
+          ),
           Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomCenter,
             child: Container(
               padding: EdgeInsets.only(left: 10,bottom: 10,top: 10),
               height: 60,
@@ -102,28 +130,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               ),
             ),
           ),
-          ListView.builder(
-            itemCount: messages.length,
-            shrinkWrap: true,
-            padding: EdgeInsets.only(top: 10,bottom: 10),
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index){
-              return Container(
-                padding: EdgeInsets.only(left: 14,right: 14,top: 10,bottom: 10),
-                child: Align(
-                  alignment: (messages[index].messageType == "receiver"?Alignment.topLeft:Alignment.topRight),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: (messages[index].messageType  == "receiver"?Color(0xffCC0000):Color(0xff07D3DF)),
-                    ),
-                    padding: EdgeInsets.all(16),
-                    child: Text(messages[index].messageContent, style: TextStyle(fontSize: 15,color: Colors.white),),
-                  ),
-                ),
-              );
-            },
-          ),
+
         ],
       ),
     );

@@ -237,7 +237,7 @@ class _sign_up extends State<login> {
     print("stringrequest");
     var request = new http.MultipartRequest(
         "POST", Uri.parse(postUrl));
-    request.fields['Mobile'] = mobile;
+    request.fields['mobile'] = mobile;
     request.send().then((response) {
       http.Response.fromStream(response).then((onValue) {
         try {

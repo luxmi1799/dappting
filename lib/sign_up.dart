@@ -545,7 +545,12 @@ class _sign_up extends State<sign_up> {
                           child: FlatButton(
                             onPressed: () {
                               circle(context);
-                               sign_up(fname.text, lname.text, emailid.text, user_id, username.text, countryval!, stateval!, cityval!, pincode.text, address.text,"User");
+                               // sign_up(fname.text, lname.text, emailid.text, user_id, username.text,
+                               //     countryval!, stateval!, cityval!, pincode.text, address.text,"User");
+                                 update_profile(fname.text, lname.text, emailid.text, user_id, username.text,
+                                   countryval!, stateval!, cityval!, pincode.text, address.text, "User", "", "", "", "",
+                                   "", "", "", "", "", "", "", "", "",
+                                   "", "", "", "", "", "","");
                             },
                             child: Text("SIGN UP",
                               textAlign: TextAlign.center,
@@ -650,9 +655,89 @@ class _sign_up extends State<sign_up> {
           if (status == "1")
             {
               setState(() {
+                Fluttertoast.showToast(
+                    msg: mapRes["message"],
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1
+                );
                 Navigator.push(context, MaterialPageRoute(builder: (context) => home_home()));
               });
             }
+          else{
+            Fluttertoast.showToast(
+                msg: mapRes["message"],
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1
+            );
+          }
+          //   print("getdatata$email $name)");
+
+        } catch (e) {
+          print("response$e");
+        }
+      });
+    });
+  }
+
+
+  update_profile(String first_name,String last_name,String email_address ,String user_id ,String user_name ,String country ,
+      String state ,String city,String pincode,String address,String type,String profile_image, String profile_video,
+      String hair_color,String eye_color , String height , String weight , String body_type , String ethnicity ,
+      String my_appearance , String drink , String smoke , String marital_status , String children_have , String children_want,
+      String occupation ,String relationship_looking_for , String education , String english_ability , String religion , String gallery
+      ) async {
+    String postUrl = "https://hookupindia.in/hookup/ApiController/updateUserProfile";
+    print("stringrequest");
+    var request = new http.MultipartRequest(
+        "POST", Uri.parse(postUrl));
+    request.fields['first_name'] = first_name;
+    request.fields['type'] = "User";
+    request.fields['last_name'] = last_name;
+    request.fields['email_address'] = email_address;
+    request.fields['user_id'] = user_id;
+    request.fields['user_name'] = user_name;
+    request.fields['country'] = country;
+    request.fields['state'] = state;
+    request.fields['city'] = city;
+    request.fields['pincode'] = pincode;
+    request.fields['address'] = address;
+    request.fields['type'] = type;
+    request.fields['profile_image'] = profile_image;
+    request.fields['profile_video'] = profile_video;
+    request.fields['hair_color'] = hair_color;
+    request.fields['eye_color'] = eye_color;
+    request.fields['height'] = height;
+    request.fields['weight'] = weight;
+    request.fields['body_type'] = body_type;
+    request.fields['ethnicity'] = ethnicity;
+    request.fields['my_appearance'] = my_appearance;
+    request.fields['drink'] = drink;
+    request.fields['smoke'] = smoke;
+    request.fields['marital_status'] = marital_status;
+    request.fields['children_have'] = children_have;
+    request.fields['children_want'] = children_want;
+    request.fields['occupation'] = occupation;
+    request.fields['relationship_looking_for'] = relationship_looking_for;
+    request.fields['education'] = education;
+    request.fields['english_ability'] = english_ability;
+    request.fields['religion'] = religion;
+    request.fields['gallery'] = gallery;
+
+    request.send().then((response) {
+      http.Response.fromStream(response).then((onValue) {
+        try {
+          Navigator.pop(context);
+          print("onValue1${onValue.body}");
+          Map mapRes = json.decode(onValue.body);
+          var status= mapRes["status"];
+          if (status == "1")
+          {
+            setState(() {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => home_home()));
+            });
+          }
           else{
             Fluttertoast.showToast(
                 msg: mapRes["message"],

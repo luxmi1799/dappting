@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:dapp/chatmessage.dart';
 import 'package:dapp/demo.dart';
 import 'package:dapp/hotpage.dart';
@@ -23,6 +25,7 @@ class home_home extends StatefulWidget{
 
 class _home extends State<home_home> {
   int currentTabIndex = 0;
+  var getuser;
   List<Widget> tabs = [
    // Example(),
     home_user(),
@@ -38,6 +41,13 @@ class _home extends State<home_home> {
       currentTabIndex = index;
     });
   }
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
      return Scaffold(

@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<smoke_provider>(create: (context)=>smoke_provider()),
         ChangeNotifierProvider<starsign_provider>(create: (context)=>starsign_provider()),
         ChangeNotifierProvider<weight_provider>(create: (context)=>weight_provider()),
+        ChangeNotifierProvider<hostlist_provider>(create: (context)=>hostlist_provider()),
       ],
       child: MaterialApp(
         title: 'Splash Screen',

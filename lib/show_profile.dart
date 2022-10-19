@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:dapp/chatmessage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class show_profile extends StatefulWidget{
   @override
@@ -11,6 +14,49 @@ class show_profile extends StatefulWidget{
 class _profile_show extends State<show_profile> {
   bool gift = true;
   double _opacity = 0.9;
+  var host_id;
+  var host_details;
+  final GlobalKey expansionTileKey = GlobalKey();
+
+
+  @override
+  void initState() {
+    super.initState();
+    getuser(context);
+  }
+
+  getuser(BuildContext context) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    host_id  = (prefs.getString('host_id')??"");
+    print("user_id$host_id");
+    this.hostdetails(host_id);
+  }
+
+  Future<String> hostdetails(String user_id) async {
+    String postUrl = "https://hookupindia.in/hookup/ApiController/userDetail";
+    var request = new http.MultipartRequest(
+        "POST", Uri.parse(postUrl));
+    request.fields['user_id'] = user_id;
+
+    request.send().then((response) {
+      http.Response.fromStream(response).then((onValue) {
+        try {
+          Map mapRes = json.decode(onValue.body);
+          var status = mapRes["status"];
+          setState(() {
+            host_details = mapRes["data"]["userData"];
+          });
+          if(status == "1"){
+           print("host_details$host_details");
+          }
+        } catch (e) {
+          print("response$e");
+        }
+      });
+    });
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
      return Stack(
@@ -37,7 +83,7 @@ class _profile_show extends State<show_profile> {
              )
          ),
          Scaffold(
-           //backgroundColor: Colors.transparent,
+           backgroundColor: Colors.transparent,
            bottomSheet: Row(
              mainAxisAlignment: MainAxisAlignment.center,
              children: [
@@ -115,7 +161,7 @@ class _profile_show extends State<show_profile> {
              ],
            ),
            body: SingleChildScrollView(
-             child: Column(
+             child: host_details!=null?Column(
                mainAxisAlignment: MainAxisAlignment.start,
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
@@ -127,14 +173,18 @@ class _profile_show extends State<show_profile> {
                    children: [
                      Container(
                          width:MediaQuery.of(context).size.width,
-                         child: Image.asset("assets/milad.png",height: 300,fit: BoxFit.cover,)
+                         child: Image.network(host_details["profile_image"],height: 300,fit: BoxFit.cover,)
                      ),
                      Padding(
                        padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 25),
                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                          children: [
-                           Icon(Icons.arrow_back_ios,size: 25,color: Colors.white,),
+                           InkWell(
+                               onTap: (){
+                                 Navigator.pop(context);
+                               },
+                               child: Icon(Icons.arrow_back_ios,size: 25,color: Colors.white,)),
                            Icon(Icons.more_vert,size: 25,color: Colors.white,),
                          ],
                        ),
@@ -163,7 +213,7 @@ class _profile_show extends State<show_profile> {
 
                  Padding(
                    padding: const EdgeInsets.only(top: 20.0,bottom: 8,left: 20),
-                     child: Text("Tiffany",style: TextStyle(
+                     child: Text(host_details["fname"]+" "+host_details["lname"],style: TextStyle(
                          color: Color(0xffCC0000),
                          fontSize: 17,
                          fontWeight: FontWeight.bold
@@ -214,6 +264,13 @@ class _profile_show extends State<show_profile> {
                  Padding(
                    padding: const EdgeInsets.only(left: 2.0),
                    child: ExpansionTile(
+                     initiallyExpanded: true,
+                     key: expansionTileKey,
+                     onExpansionChanged: (value) {
+                       if (value) {
+                         _scrollToSelectedContent(expansionTileKey: expansionTileKey);
+                       }
+                     },
                      title: Text("Basic Information",style: TextStyle(
                          fontWeight: FontWeight.bold,
                          fontSize: 14,
@@ -333,7 +390,27 @@ class _profile_show extends State<show_profile> {
                              SizedBox(
                                width: 5,
                              ),
-                             Text("Black",style: TextStyle(
+                             Text(host_details["hair_color"],style: TextStyle(
+                                 fontSize: 14,
+                                 color: Color(0xffCC0000)
+                             ),),
+                           ],
+                         ),
+                       ),
+
+                       Padding(
+                         padding: const EdgeInsets.only(left: 20.0,top: 10,right: 20),
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           children: [
+                             Text("Body Type",style: TextStyle(
+                                 fontSize: 14,
+                                 color: Colors.black
+                             ),),
+                             SizedBox(
+                               width: 5,
+                             ),
+                             Text(host_details["body_type"],style: TextStyle(
                                  fontSize: 14,
                                  color: Color(0xffCC0000)
                              ),),
@@ -440,10 +517,19 @@ class _profile_show extends State<show_profile> {
                  ),
 
                ],
-             ),
+             ):Center(child: CircularProgressIndicator(),),
            ),
          ),
        ],
      );
+  }
+  void _scrollToSelectedContent({required GlobalKey expansionTileKey}) {
+    final keyContext = expansionTileKey.currentContext;
+    if (keyContext != null) {
+      Future.delayed(Duration(milliseconds: 200)).then((value) {
+        Scrollable.ensureVisible(keyContext,
+            duration: Duration(milliseconds: 200));
+      });
+    }
   }
 }
